@@ -1,0 +1,18 @@
+@use "../../theme/index" as *;
+
+.wyx-border-text {
+  --t: 0.4s;
+  --s: 2px;
+  --c: $primary-border;
+  display: inline-block;
+  cursor: pointer;
+  transition: background-size var(--t) ease-in-out;
+  background: linear-gradient(to right, var(--c), var(--c)) no-repeat right bottom;
+  background-size: 0 var(--s);
+  color: var(--primary-text);
+
+  &:hover {
+    background-position: left bottom;
+    background-size: 100% var(--s);
+  }
+}

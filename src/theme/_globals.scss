@@ -1,0 +1,130 @@
+// 仅在聚合入口引入一次，避免重复输出
+:root {
+  color-scheme: light dark;
+  // view-transition-name: root;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wyx-ui {
+  --primary-border: oklch(0.9 0.17 100);
+  --bg-dark: oklch(0.1 0 264);
+  --bg: oklch(0.2 0 264);
+  --bg-light: oklch(0.3 0 264);
+  --primary-text: oklch(1 0 264);
+  --primary-muted: oklch(0.75 0 264);
+  --primary-hover: oklch(0.27 0.02 285);
+
+  --shadow-s: inset 0 1px 2px #ffffff30,
+  0 1px 2px #00000030,
+  0 2px 4px #00000015;
+  --shadow-m: inset 0 1px 2px #ffffff50,
+  0 2px 4px #00000030,
+  0 4px 8px #00000015;
+  --shadow-l: inset 0 1px 2px #ffffff70,
+  0 4px 6px #00000030,
+  0 6px 10px #00000015;
+}
+
+// .wyx-ui.light {
+//   --primary-border: oklch(0.65 0.15 264);
+//   --bg-dark: oklch(0.92 0 264);
+//   --bg: oklch(0.96 0 264);
+//   --bg-light: oklch(1 0 264);
+//   --primary-text: oklch(0.15 0 264);
+//   --primary-muted: oklch(0.4 0 264);
+// }
+
+
+// ::view-transition-new(root),
+// ::view-transition-old(root) {
+//   animation: none;
+//   mix-blend-mode: normal;
+// }
+
+// ::view-transition-old(root) {
+//   z-index: 0;
+// }
+
+// ::view-transition-new(root) {
+//   z-index: 1;
+// }
+
+// html.wyx-ui-dark::view-transition-old(root) {
+//   z-index: 2147483646;
+// }
+
+// html.wyx-ui-dark::view-transition-new(root) {
+//   z-index: 1;
+// }
+// 移除根据 html.dark 切换的 z-index，避免层级翻转导致闪烁
+
+// 定义基础变量
+$bg-animation-color-light: #000;
+$bg-animation-color-dark: #fff;
+$bg-animation-duration: 0.5s;
+
+html {
+
+  --bg-animation-color: $bg-animation-color-light;
+
+  &.dark {
+    --bg-animation-color: $bg-animation-color-dark;
+  }
+
+  // View transition styles
+  &::view-transition-old(*) {
+    animation: none;
+  }
+
+  &::view-transition-new(*) {
+    animation: clip $bg-animation-duration ease-in both;
+  }
+
+  &::view-transition-old(root) {
+    z-index: 1;
+  }
+
+  &::view-transition-new(root) {
+    z-index: 9999;
+  }
+
+  &.wyx-ui-dark {
+    &::view-transition-old(*) {
+      animation: clip $bg-animation-duration ease-in reverse both;
+    }
+
+    &::view-transition-new(*) {
+      animation: none;
+    }
+
+    &::view-transition-old(root) {
+      z-index: 9999;
+    }
+
+    &::view-transition-new(root) {
+      z-index: 1;
+    }
+  }
+}
+
+// 定义动画
+@keyframes clip {
+  from {
+    clip-path: circle(0% at var(--x) var(--y));
+  }
+
+  to {
+    clip-path: circle(var(--r) at var(--x) var(--y));
+  }
+}
+
+// body 相关样式
+body {
+  background-color: var(--bg-animation-color);
+}

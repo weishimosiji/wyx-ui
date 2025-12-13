@@ -1,0 +1,114 @@
+/* LIKE BUTTON CONTAINER */
+.like-button-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+
+  /* The actual button reset */
+  .btn-reset {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Heart specific styles */
+  .heart-btn {
+    // width: 40px;
+    // height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.1s ease;
+    color: inherit; /* Default slate color */
+  }
+
+  .heart-btn:hover {
+    transform: scale(1.1);
+    color: inherit;
+  }
+
+  .heart-btn:active {
+    transform: scale(0.95);
+  }
+
+  /* When Liked */
+  .heart-btn.liked {
+    color: #ef4444; /* Red 500 */
+    animation: bounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .heart-btn.liked svg {
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.4));
+  }
+
+  /* Counter text */
+  .like-count {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    min-width: 20px;
+    transition: color 0.3s, transform 0.2s;
+  }
+
+  .like-count.active {
+    color: #ef4444;
+    transform: translateX(2px);
+  }
+
+  /* --- PARTICLES --- */
+  .particle-system {
+    position: absolute;
+    top: 50%;
+    left: 20px; /* Center of the heart button (width 40 / 2) */
+    width: 0;
+    height: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .particle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--color);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+
+  /* Trigger the particle animation */
+  .animating .particle {
+    animation: explode 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+
+  /* --- KEYFRAMES --- */
+  @keyframes bounce {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.5); }
+    50% { transform: scale(0.85); }
+    75% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes explode {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(0.5);
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.2);
+    }
+  }
+}
+

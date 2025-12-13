@@ -1,0 +1,50 @@
+.wyx-ui_danmu {
+  position: relative;
+  display: inline-block;
+}
+
+.wyx-ui_danmu-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wyx-ui_danmu-item {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.wyx-ui_danmu-item {
+  animation-name: wyx-danmu-move;
+  animation-duration: var(--wyx-dur, 6s);
+  animation-timing-function: linear;
+  animation-delay: var(--wyx-delay, 0s);
+  animation-fill-mode: forwards;
+  animation-play-state: running;
+}
+
+.wyx-ui_danmu:not(.is-interactive) .wyx-ui_danmu-item { pointer-events: none; }
+
+.wyx-ui_danmu.is-paused .wyx-ui_danmu-item {
+  animation-play-state: paused;
+}
+
+.wyx-ui_danmu-item:hover {
+  animation-play-state: paused;
+}
+
+@keyframes wyx-danmu-move {
+  from {
+    transform: translateX(var(--start));
+  }
+
+  to {
+    transform: translateX(var(--end));
+  }
+}
+.wyx-ui_danmu.pause-on-hover:not(.is-interactive):hover .wyx-ui_danmu-item {
+  animation-play-state: paused;
+}

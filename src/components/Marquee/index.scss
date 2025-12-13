@@ -1,0 +1,45 @@
+.wyx-ui-marquee-container {
+  --marquee-speed: 30s;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  gap: 2rem;
+  padding: 1rem 0;
+  width: 100%;
+  /* Keyframes for scrolling */
+  @keyframes scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+
+  @keyframes scroll-right {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+  }
+
+  .wyx-ui-marquee-content {
+    flex-shrink: 0;
+    display: flex;
+    gap: 2rem;
+    min-width: 100%;
+    justify-content: space-around;
+  }
+
+  .wyx-ui-scroll-left {
+    animation: scroll-left var(--marquee-speed) linear infinite;
+  }
+  
+  .wyx-ui-scroll-right {
+    animation: scroll-right var(--marquee-speed) linear infinite;
+  }
+  
+  /* Pause animation on hover */
+  &:hover {
+    .wyx-ui-marquee-content {
+      animation-play-state: paused;
+    }
+  }
+  
+}

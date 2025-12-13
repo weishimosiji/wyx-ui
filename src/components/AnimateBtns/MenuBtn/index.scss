@@ -1,0 +1,27 @@
+.wyx-menu-button {
+
+  path {
+    stroke: var(--primary-text);
+    stroke-width: 4;
+    stroke-linecap: round;
+    transition: all 0.3s ease;
+  }
+
+  &.open path:nth-child(1) {
+    d: path("M 10 10 L 30 30");
+    transform: scale(1.1);
+  }
+
+  &.open path:nth-child(2) {
+    opacity: 0;
+  }
+  
+  &.open path:nth-child(3) {
+    d: path("M 10 30 L 30 10");
+    transform: scale(1.1);
+  }
+
+  &.closed path:not(:nth-child(2)) {
+    transform: scale(1);
+  }
+}

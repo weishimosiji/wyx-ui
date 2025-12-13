@@ -1,0 +1,47 @@
+{
+  "name": "@wyx-ui/react",
+  "version": "0.1.0",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./styles.css": "./dist/index.css",
+    "./normalize.css": "./dist/normalize.css"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@types/node": "^24.8.1",
+    "@types/react": "^18.2.8",
+    "@types/react-dom": "^18.2.4",
+    "esbuild-sass-plugin": "^3.3.1",
+    "sass": "^1.93.2",
+    "tsup": "^7.3.0",
+    "typescript": "^5.6.0"
+  },
+  "scripts": {
+    "build": "tsup --format esm,cjs --dts --clean",
+    "dev": "tsup --watch --format esm,cjs --dts"
+  }
+}

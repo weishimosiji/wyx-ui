@@ -1,0 +1,44 @@
+.wyx-btn_fullscreen {
+
+  svg {
+
+    path {
+      stroke: var(--primary-text);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.3s ease;
+      fill: transparent;
+    }
+  }
+}
+
+.wyx-btn_fullscreen.open {
+  #fullscreen-path1 {
+    d: path("M30,60 L60,60 L60,30");
+  }
+  #fullscreen-path2 {
+    d: path("M120,60 L90,60 L90,30");
+  }
+  #fullscreen-path3 {
+    d: path("M60,120 L60,90 L30,90");
+  }
+  #fullscreen-path4 {
+    d: path("M90,120 L90,90 L120,90");
+  }
+}
+
+.wyx-btn_fullscreen.close {
+  #fullscreen-path1 {
+    d: path("M30,60 L30,30 L60,30");
+  }
+  #fullscreen-path2 {
+    d: path("M120,60 L120,30 L90,30");
+  }
+  #fullscreen-path3 {
+    d: path("M60,120 L30,120 L30,90");
+  }
+  #fullscreen-path4 {
+    d: path("M90,120 L120,120 L120,90");
+  }
+}

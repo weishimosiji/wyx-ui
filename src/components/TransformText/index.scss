@@ -1,0 +1,61 @@
+.wyx-ui_transform-text {
+  display: flex;
+  flex-wrap: wrap;
+  white-space: pre-wrap;
+  position: relative;
+  --text-rotate-duration: 400ms;
+  --text-rotate-ease: cubic-bezier(.2,.8,.2,1);
+  --text-rotate-enter-y: 100%;
+  --text-rotate-exit-y: -120%;
+}
+
+.wyx-ui_transform-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.wyx-ui_transform-word {
+  display: inline-flex;
+}
+
+.wyx-ui_transform-lines {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.wyx-ui_transform-element {
+  display: inline-block;
+}
+
+.wyx-ui_transform-enter {
+  transform: translateY(var(--text-rotate-enter-y));
+  opacity: 0;
+  animation: wyx-ui_transform-enter var(--text-rotate-duration) var(--text-rotate-ease) forwards;
+}
+
+.wyx-ui_transform-exit {
+  transform: translateY(0);
+  opacity: 1;
+  animation: wyx-ui_transform-exit var(--text-rotate-duration) var(--text-rotate-ease) forwards;
+}
+
+@keyframes wyx-ui_transform-enter {
+  from { transform: translateY(var(--text-rotate-enter-y)); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes wyx-ui_transform-exit {
+  to { transform: translateY(var(--text-rotate-exit-y)); opacity: 0; }
+}
+
+.wyx-ui_transform-space {
+  white-space: pre;
+}

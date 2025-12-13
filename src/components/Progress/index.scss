@@ -1,0 +1,142 @@
+/* --- Component: Progress --- */
+.wyx-ui_progress-root, .wyx-ui_progress-circular-root {
+  --wyx-progress-label-color: var(--primary-text);
+  --wyx-progress-track-bg: #e2e8f0;
+  --wyx-progress-circular-bg: #e2e8f0;
+  --wyx-progress-stripe-color: rgba(255, 255, 255, .15);
+  --wyx-progress-primary: #2563eb;
+  --wyx-progress-success: #10b981;
+  --wyx-progress-warning: #fbbf24;
+  --wyx-progress-danger: #f43f5e;
+  --wyx-progress-info: #06b6d4;
+  --wyx-progress-purple: #7c3aed;
+  --wyx-progress-gradient-blue-from: #3b82f6;
+  --wyx-progress-gradient-blue-to: #22d3ee;
+  --wyx-progress-gradient-sunset-from: #fb923c;
+  --wyx-progress-gradient-sunset-to: #f43f5e;
+  width: 100%;
+}
+
+.wyx-ui_progress-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+}
+
+.wyx-ui_progress-label-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--wyx-progress-label-color, #334155);
+}
+
+.wyx-ui_progress-track {
+  width: 100%;
+  background-color: var(--wyx-progress-track-bg, #e2e8f0);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.wyx-ui_progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.5s ease-out;
+}
+
+.wyx-ui_progress-label-inside {
+  color: white;
+  font-weight: 500;
+  padding: 0 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.875rem;
+}
+
+.wyx-ui_progress-fill.wyx-ui_progress-striped {
+  background-image: linear-gradient(
+    45deg,
+    var(--wyx-progress-stripe-color, rgba(255,255,255,.15)) 25%,
+    transparent 25%,
+    transparent 50%,
+    var(--wyx-progress-stripe-color, rgba(255,255,255,.15)) 50%,
+    var(--wyx-progress-stripe-color, rgba(255,255,255,.15)) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+.wyx-ui_progress-fill.wyx-ui_progress-animated {
+  animation: wyx-ui_progress-stripe 1s linear infinite;
+}
+
+@keyframes wyx-ui_progress-stripe {
+  0% { background-position: 0 0; }
+  100% { background-position: 1rem 0; }
+}
+
+/* Linear Sizes */
+.wyx-ui_progress-line-sm { height: 0.375rem; }
+.wyx-ui_progress-line-md { height: 0.625rem; }
+.wyx-ui_progress-line-lg { height: 1rem; }
+.wyx-ui_progress-line-xl { height: 1.5rem; }
+
+/* Circular Styles */
+.wyx-ui_progress-circular-root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wyx-ui_progress-circular-bg {
+  color: var(--wyx-progress-circular-bg, #e5e7eb);
+}
+
+.wyx-ui_progress-circular-track {
+  transition: stroke-dashoffset 0.7s ease-out;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.wyx-ui_progress-circular-label-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wyx-ui_progress-circular-label-text {
+  font-weight: 600;
+  color: var(--wyx-progress-label-color, #334155);
+  font-size: 0.875rem;
+}
+.wyx-ui_progress-circular-label-text.wyx-ui_progress-text-small { font-size: 10px; }
+.wyx-ui_progress-circular-label-text.wyx-ui_progress-text-large { font-size: 1.125rem; }
+
+/* Colors - Backgrounds (Linear) */
+.wyx-ui_progress-bg-primary { background-color: var(--wyx-progress-primary, #2563eb); }
+.wyx-ui_progress-bg-success { background-color: var(--wyx-progress-success, #10b981); }
+.wyx-ui_progress-bg-warning { background-color: var(--wyx-progress-warning, #fbbf24); }
+.wyx-ui_progress-bg-danger { background-color: var(--wyx-progress-danger, #f43f5e); }
+.wyx-ui_progress-bg-info { background-color: var(--wyx-progress-info, #06b6d4); }
+.wyx-ui_progress-bg-purple { background-color: var(--wyx-progress-purple, #7c3aed); }
+.wyx-ui_progress-bg-gradient-blue { background: linear-gradient(to right, var(--wyx-progress-gradient-blue-from), var(--wyx-progress-gradient-blue-to)); }
+.wyx-ui_progress-bg-gradient-sunset { background: linear-gradient(to right, var(--wyx-progress-gradient-sunset-from), var(--wyx-progress-gradient-sunset-to)); }
+
+/* Colors - Text/Stroke (Circular) */
+.wyx-ui_progress-text-primary { color: var(--wyx-progress-primary, #2563eb); }
+.wyx-ui_progress-text-success { color: var(--wyx-progress-success, #10b981); }
+.wyx-ui_progress-text-warning { color: var(--wyx-progress-warning, #fbbf24); }
+.wyx-ui_progress-text-danger { color: var(--wyx-progress-danger, #f43f5e); }
+.wyx-ui_progress-text-info { color: var(--wyx-progress-info, #06b6d4); }
+.wyx-ui_progress-text-purple { color: var(--wyx-progress-purple, #7c3aed); }
+.wyx-ui_progress-text-gradient-blue { color: var(--wyx-progress-gradient-blue-from, #3b82f6); }
+.wyx-ui_progress-text-gradient-sunset { color: var(--wyx-progress-gradient-sunset-from, #fb923c); }

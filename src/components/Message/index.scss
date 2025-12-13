@@ -1,0 +1,104 @@
+.wyx-ui_message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  background-color: var(--bg-light);
+  color: var(--primary-text);
+  box-shadow: var(--shadow-s);
+
+  .wyx-message_icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+  }
+
+  span {
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
+  .wyx-message_x-path1 {
+    animation: wyx-message_draw-x1 1s ease-in-out forwards;
+    animation-delay: 0.25s;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  
+  .wyx-message_x-path2 {
+    animation: wyx-message_draw-x2 1s ease-in-out forwards;
+    animation-delay: 0.25s; 
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  
+  @keyframes wyx-message_draw-x1 {
+    0% {
+      stroke-dashoffset: 100;
+    }
+    50%, 100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  @keyframes wyx-message_draw-x2 {
+    0%, 20% {
+      stroke-dashoffset: 100;
+    }
+    70%, 100% {
+      stroke-dashoffset: 0;
+    }
+  }
+  
+  /* ✓动画 */
+  .wyx-message_check-path {
+    fill: none;
+    stroke: #0fc30f;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    animation: wyx-message_draw-check 2s ease-in-out forwards;
+    animation-delay: 0.25s;
+  }
+  
+  
+  @keyframes wyx-message_draw-check {
+    0% {
+      stroke-dashoffset: 100;
+    }
+    30%, 100% {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+.wyx-ui-message_container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.wyx-ui-message_wrapper {
+  pointer-events: auto;
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  
+  &.wyx-ui-message_enter {
+    opacity: 1;
+    transform: translateY(0);
+    margin-bottom: 10px;
+  }
+}

@@ -1,0 +1,96 @@
+.wyx-ui_popover-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.wyx-ui_popover {
+  position: absolute;
+  background: var(--bg-light);
+  color: var(--primary-text);
+  box-shadow: var(--shadow-s);
+  // filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18)) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate3d(0, 0, 0) scale(0.98);
+  transition: opacity 160ms ease, transform 160ms ease;
+  z-index: 1002;
+}
+
+.wyx-ui_popover--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.wyx-ui_popover-content {
+  display: inline-block;
+  white-space: pre;
+}
+
+.wyx-ui_popover-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  z-index: 1;
+  filter: drop-shadow(var(--shadow-s));
+}
+
+.wyx-ui_popover--top {
+  left: 50%;
+  bottom: calc(100% + var(--popover-offset));
+  transform: translate(-50%, 6px) scale(0.98);
+}
+.wyx-ui_popover--top.wyx-ui_popover--open { transform: translate(-50%, 0) scale(1); }
+.wyx-ui_popover-arrow--top {
+  left: 50%;
+  bottom: -4px;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-color: var(--bg-light) transparent transparent transparent;
+}
+
+.wyx-ui_popover--bottom {
+  left: 50%;
+  top: calc(100% + var(--popover-offset));
+  transform: translate(-50%, -6px) scale(0.98);
+}
+.wyx-ui_popover--bottom.wyx-ui_popover--open { transform: translate(-50%, 0) scale(1); }
+.wyx-ui_popover-arrow--bottom {
+  left: 50%;
+  top: -6px;
+  transform: translateX(-50%);
+  border-width: 0 6px 6px 6px;
+  border-color: transparent transparent var(--bg) transparent;
+}
+
+.wyx-ui_popover--left {
+  right: calc(100% + var(--popover-offset));
+  top: 50%;
+  transform: translate(6px, -50%) scale(0.98);
+}
+.wyx-ui_popover--left.wyx-ui_popover--open { transform: translate(0, -50%) scale(1); }
+.wyx-ui_popover-arrow--left {
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 0 6px 6px;
+  border-color: transparent transparent transparent var(--bg);
+}
+
+.wyx-ui_popover--right {
+  left: calc(100% + var(--popover-offset));
+  top: 50%;
+  transform: translate(-6px, -50%) scale(0.98);
+}
+.wyx-ui_popover--right.wyx-ui_popover--open { transform: translate(0, -50%) scale(1); }
+.wyx-ui_popover-arrow--right {
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 6px 6px 6px 0;
+  border-color: transparent var(--bg) transparent transparent;
+}

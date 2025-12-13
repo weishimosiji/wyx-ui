@@ -1,0 +1,55 @@
+.wyx-btn_icon {
+  .wyx-icon_fail {
+    path {
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: transparent;
+    }
+  }
+  .wyx-icon_success {
+    path {
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: transparent;
+    }
+  }
+
+  .circular {
+    width: 100%;
+    height: 100%;
+    animation: loading-rotate 1.5s linear infinite;
+
+    .path {
+      animation: loading-path 1.5s ease-in-out infinite;
+      stroke-dasharray: 90 120;
+      stroke-dashoffset: 0;
+      stroke-linecap: round;
+      stroke: var(--primary-text);
+    }
+
+    @keyframes loading-rotate {
+      to {
+        transform: rotate(1turn);
+      }
+    }
+
+    @keyframes loading-path {
+      0% {
+        stroke-dasharray: 1 200;
+        stroke-dashoffset: 0;
+      }
+      50% {
+        stroke-dasharray: 90 150;
+        stroke-dashoffset: -40;
+      }
+      100% {
+        stroke-dasharray: 90 150;
+        stroke-dashoffset: -120;
+      }
+    }
+  }
+
+  
+}

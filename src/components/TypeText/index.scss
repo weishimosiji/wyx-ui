@@ -1,0 +1,23 @@
+.wyx-ui_typetext {
+  --wyx-tt-cursor-color: currentColor;
+  --wyx-tt-blink-speed: 700ms;
+}
+
+.wyx-ui_typetext_text {
+  white-space: pre-wrap;
+}
+
+.wyx-ui_typetext_cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--wyx-tt-cursor-color);
+  animation: wyx-ui_tt-blink 1.2s step-end infinite;
+}
+
+.wyx-ui_typetext_cursor--end {
+  animation-play-state: running;
+}
+
+@keyframes wyx-ui_tt-blink {
+  50% { opacity: 0; }
+}

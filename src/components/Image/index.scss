@@ -1,0 +1,110 @@
+.wyx-ui_image {
+  position: relative;
+  display: inline-block;
+  background: var(--bg);
+  color: var(--primary-text);
+}
+
+.wyx-ui_image-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wyx-ui_image img {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 200ms ease, transform 200ms ease;
+  user-select: none;
+}
+
+.wyx-ui_image--loaded img,
+.wyx-ui_image--error img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wyx-ui_image-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.wyx-ui_image-placeholder {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(0,0,0,0.06) 25%, rgba(0,0,0,0.12) 37%, rgba(0,0,0,0.06) 63%);
+  background-size: 400% 100%;
+  animation: wyx-ui_image_shimmer 1200ms ease infinite;
+}
+
+@keyframes wyx-ui_image_shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: 0 0; }
+}
+
+.wyx-ui_image-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.wyx-ui_image-preview {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms ease, background-color 240ms ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1003;
+  perspective: 1000px;
+}
+
+.wyx-ui_image-preview img {
+  max-width: 92vw;
+  max-height: 92vh;
+  box-shadow: var(--shadow-s);
+  transform: rotateY(-90deg) scale(0.96);
+  transition: transform 320ms cubic-bezier(.22, 1, .36, 1);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.wyx-ui_image-preview--open {
+  opacity: 1;
+  pointer-events: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.wyx-ui_image-preview--open img { transform: rotateY(0) scale(1); }
+
+.wyx-ui_image-preview--closing { opacity: 0; pointer-events: none; }
+.wyx-ui_image-preview--closing { background-color: rgba(0,0,0,0); }
+.wyx-ui_image-preview--closing img { transform: rotateY(90deg) scale(0.96); }
+
+.wyx-ui_image-preview--no-flip img {
+  transform: rotateY(0) scale(1);
+  transition: none;
+}
+
+.wyx-ui_image-ghost {
+  box-shadow: var(--shadow-s);
+  will-change: transform;
+  transition: transform 360ms cubic-bezier(.22, 1, .36, 1);
+  transform-origin: top left;
+}
+
+.wyx-ui_image-preview--pre img { visibility: hidden; }

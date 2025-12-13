@@ -1,0 +1,24 @@
+.wyx-ui_code-btn {
+  .wyx-ui_code-btn__path, .wyx-ui_code-btn__l, .wyx-ui_code-btn__r {
+    transition: 0.25s;
+  }
+  .wyx-ui_code-btn__l {
+    transform: translateX(0);
+  }
+  .wyx-ui_code-btn__r {
+    transform: translateX(0);
+  }
+}
+
+.wyx-ui_code-btn_hide {
+  .wyx-ui_code-btn__path {
+    transform: translate(1px, -2px);
+    opacity: 0;
+  }
+  .wyx-ui_code-btn__l {
+    transform: translateX(2px);
+  }
+  .wyx-ui_code-btn__r {
+    transform: translateX(-2px);
+  }
+}

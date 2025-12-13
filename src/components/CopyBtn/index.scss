@@ -1,0 +1,36 @@
+.wyx-btn_copy {
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg);
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ✓动画 */
+  #check-path1 {
+    fill: none;
+    stroke: #0fc30f;
+    stroke-width: 10;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+  }
+  
+  #check-path1 {
+    animation: draw-check1 2s ease-in-out forwards;
+  }
+  
+  
+  @keyframes draw-check1 {
+    0% {
+      stroke-dashoffset: 100;
+    }
+    30%, 100% {
+      stroke-dashoffset: 0;
+    }
+  }
+}

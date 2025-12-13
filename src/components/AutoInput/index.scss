@@ -1,0 +1,55 @@
+@use "../../theme/index" as *;
+
+.wyx-auto-input_container {
+  display: inline-flex;
+  border: 1px solid $normal-border;
+  border-radius: 6px;
+  background-color: var(--bg);
+  align-items: center;
+  padding: 0 4px;
+
+  .wyx-auto_prefix,
+  .wyx-auto_suffix,
+  .wyx-auto_count {
+    color: var(--primary-text);
+    display: flex;
+    align-items: center;
+  }
+
+  .wyx-auto_count {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    transform: scale(0.9);
+    transform-origin: bottom right;
+  }
+}
+
+.wyx-auto-input {
+  padding: 4px;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  
+
+  input {
+    color: var(--primary-text);
+    position: absolute;
+    font-family: inherit;
+    font-size: inherit;
+    width: calc(100% - 8px);
+    background-color: transparent;
+    outline: none;
+    border: none;
+    padding: 0;
+  }
+
+  .wyx-auto_content-fill {
+    flex: 1;
+    height: 24px;
+    visibility: hidden;
+    white-space: pre-wrap;
+  }
+}

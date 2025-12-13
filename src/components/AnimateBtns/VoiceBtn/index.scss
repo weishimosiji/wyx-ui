@@ -1,0 +1,85 @@
+.wyx-btn_voice {
+  --voice-speed: 0.5s;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg);
+
+  svg {
+    width: 100%;
+    height: 100%;
+
+    path {
+      stroke: var(--primary-text);
+      stroke-width: 10px;
+      stroke-linecap: round;
+    }
+
+    #voice-path1 {
+      d: path("M 25 60 L 25 90");
+      transform-origin: center center;
+      animation: voice-wave_1 var(--voice-speed) linear alternate infinite;
+    }
+    #voice-path2 {
+      d: path("M 50 50 L 50 100");
+      transform-origin: center center;
+      animation: voice-wave_2 var(--voice-speed) linear alternate infinite;
+    }
+    #voice-path3 {
+      d: path("M 75 40 L 75 110");
+      transform-origin: center center;
+      animation: voice-wave_3 var(--voice-speed) linear alternate-reverse infinite;
+    }
+    #voice-path4 {
+      d: path("M 100 50 L 100 100");
+      transform-origin: center center;
+      animation: voice-wave_2 var(--voice-speed) linear alternate infinite;
+    }
+    #voice-path5 {
+      d: path("M 125 60 L 125 90");
+      transform-origin: center center;
+      animation: voice-wave_1 var(--voice-speed) linear alternate infinite;
+    }
+  }
+
+  @keyframes voice-wave_1 {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(2);
+    }
+  }
+
+  @keyframes voice-wave_2 {
+    from {
+      transform: scaleY(1.3);
+    }
+    to {
+      transform: scaleY(0.7);
+    }
+  }
+
+  @keyframes voice-wave_3 {
+    from {
+      transform: scaleY(1);
+    }
+    to {
+      transform: scaleY(0.5);
+    }
+  }
+}
+
+.wyx-btn_voice.voice-pause {
+  path {
+    animation-play-state: paused !important;
+  }
+}
+
+
+
+
+

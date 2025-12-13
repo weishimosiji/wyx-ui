@@ -1,0 +1,275 @@
+.wyx-ui_timeline {
+  position: relative;
+  --line-width: 2px;
+  --dot-size: 12px;
+  --center-gap: 24px;
+  --item-pad-top: 16px;
+  --card-pad-top: 12px;
+  --label-line-height: 18px;
+  --label-top-shift: 0px;
+}
+
+.wyx-ui_timeline--vertical {
+  --line-width: 2px;
+  --dot-size: 12px;
+}
+
+.wyx-ui_timeline--vertical .wyx-ui_timeline-axis {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: var(--line-width, 2px);
+  background: var(--line-color, #e5e7eb);
+  transform: translateX(-50%);
+}
+
+/* vertical linear: shift axis to left and use full width */
+.wyx-ui_timeline--vertical.wyx-ui_timeline--linear .wyx-ui_timeline-axis {
+  left: var(--axis-side-offset, 24px);
+  transform: translateX(-50%);
+}
+.wyx-ui_timeline--vertical.wyx-ui_timeline--linear .wyx-ui_timeline-item {
+  width: 100%;
+  padding-left: calc(var(--axis-side-offset, 24px));
+}
+.wyx-ui_timeline--vertical.wyx-ui_timeline--linear .wyx-ui_timeline-item--right {
+  margin-left: 0;
+}
+.wyx-ui_timeline--vertical.wyx-ui_timeline--linear .wyx-ui_timeline-item--right .wyx-ui_timeline-dot {
+  left: var(--axis-side-offset, 24px);
+  --dot-tx: -50%;
+}
+.wyx-ui_timeline--vertical.wyx-ui_timeline--linear .wyx-ui_timeline-item--right .wyx-ui_timeline-card {
+  margin-left: var(--axis-gap, 24px);
+}
+
+.wyx-ui_timeline-items {
+  position: relative;
+}
+
+.wyx-ui_timeline-axis {
+  z-index: 0;
+}
+
+.wyx-ui_timeline-items {
+  z-index: 1;
+}
+
+.wyx-ui_timeline-item {
+  position: relative;
+  padding: 16px;
+  box-sizing: border-box;
+  width: 50%;
+}
+
+.wyx-ui_timeline-item--left {
+  width: 50%;
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.wyx-ui_timeline-item--right {
+  margin-left: 50%;
+  width: 50%;
+}
+
+.wyx-ui_timeline-dot {
+  position: absolute;
+  top: 50%;
+  width: var(--dot-size);
+  height: var(--dot-size);
+  border-radius: 50%;
+  background: var(--dot-color, #9ca3af);
+  border: 2px solid #fff;
+  transform: translate(var(--dot-tx, 0), var(--dot-ty, -50%));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform .15s ease, box-shadow .15s ease;
+  cursor: pointer;
+}
+
+.wyx-ui_timeline-dot.is-custom {
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+.wyx-ui_timeline-dot {
+  box-sizing: border-box;
+}
+
+.wyx-ui_timeline-item--left .wyx-ui_timeline-dot {
+  right: calc(-1 * (var(--dot-size) / 2) + var(--dot-left-shift, 0px));
+}
+
+.wyx-ui_timeline-item--right .wyx-ui_timeline-dot {
+  left: calc(-1 * (var(--dot-size) / 2) + var(--dot-right-shift, 0px));
+}
+
+.wyx-ui_timeline-item--left .wyx-ui_timeline-dot.is-custom {
+  right: 0;
+  --dot-tx: 50%;
+  --dot-ty: -50%;
+}
+
+.wyx-ui_timeline-item--right .wyx-ui_timeline-dot.is-custom {
+  left: 0;
+  --dot-tx: -50%;
+  --dot-ty: -50%;
+}
+
+.wyx-ui_timeline-card {
+  background: var(--bg-light, #fff);
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
+  padding: var(--card-pad-top, 12px) 14px;
+  display: inline-block;
+  max-width: 100%;
+}
+
+// .wyx-ui_timeline-head {
+//   display: flex;
+//   align-items: center;
+//   gap: 8px;
+// }
+
+.wyx-ui_timeline-title {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.wyx-ui_timeline-label {
+  color: #6b7280;
+  font-size: 12px;
+  margin-bottom: 6px;
+  line-height: var(--label-line-height, 18px);
+}
+
+.wyx-ui_timeline-content {
+  color: var(--primary-muted);
+  font-size: 13px;
+  white-space: pre;
+}
+
+.wyx-ui_timeline-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+}
+
+
+.wyx-ui_timeline--horizontal {
+  --line-width: 2px;
+  --dot-size: 12px;
+  --h-gap: 24px;
+}
+
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-axis {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--line-width, 2px);
+  background: var(--line-color, #e5e7eb);
+  clip-path: inset(0 var(--axis-cut-right, 0) 0 var(--axis-cut-left, 0));
+}
+.wyx-ui_timeline--horizontal.wyx-ui_timeline--cross .wyx-ui_timeline-axis {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-items {
+  display: flex;
+  gap: var(--h-gap, 24px);
+  align-items: flex-start;
+  padding-top: 0;
+}
+
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-item {
+  padding: 0;
+  min-width: 140px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: calc(var(--axis-gap, 18px) + var(--dot-size, 12px));
+}
+.wyx-ui_timeline--horizontal.wyx-ui_timeline--cross .wyx-ui_timeline-item {
+  height: var(--h-items-height, auto);
+}
+
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-dot {
+  top: 0;
+  left: 50%;
+  --dot-tx: -50%;
+  --dot-ty: -50%;
+}
+.wyx-ui_timeline--horizontal.wyx-ui_timeline--cross .wyx-ui_timeline-dot {
+  top: 50%;
+}
+
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-card { text-align: center; }
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-item--bottom .wyx-ui_timeline-card { margin-top: var(--axis-gap, 18px); }
+// .wyx-ui_timeline--horizontal .wyx-ui_timeline-item--top { }
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-item--top .wyx-ui_timeline-card { margin-bottom: var(--axis-gap, 18px); }
+
+/* cross mode: place cards by axis center with exact gap */
+.wyx-ui_timeline--horizontal.wyx-ui_timeline--cross .wyx-ui_timeline-item--top .wyx-ui_timeline-card {
+  position: absolute;
+  bottom: calc(50% + var(--axis-gap, 18px));
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
+.wyx-ui_timeline--horizontal.wyx-ui_timeline--cross .wyx-ui_timeline-item--bottom .wyx-ui_timeline-card {
+  position: absolute;
+  top: calc(50% + var(--axis-gap, 18px));
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
+
+/* vertical content distance to axis */
+.wyx-ui_timeline--vertical .wyx-ui_timeline-item--left .wyx-ui_timeline-card {
+  margin-right: var(--axis-gap, 24px);
+}
+
+.wyx-ui_timeline--vertical .wyx-ui_timeline-item--right .wyx-ui_timeline-card {
+  margin-left: var(--axis-gap, 24px);
+}
+
+
+.wyx-ui_timeline--vertical .wyx-ui_timeline-item {
+  --dot-top: calc(var(--item-pad-top, 16px) + var(--card-pad-top, 12px) + (var(--label-line-height, 18px) / 2) + var(--label-top-shift, 0px));
+}
+
+.wyx-ui_timeline--vertical .wyx-ui_timeline-dot {
+  top: var(--dot-top);
+}
+
+.wyx-ui_timeline--vertical .wyx-ui_timeline-axis {
+  clip-path: inset(var(--axis-cut-top, 0) 0 var(--axis-cut-bottom, 0) 0);
+}
+
+.wyx-ui_timeline--vertical .wyx-ui_timeline-dot:hover { transform: translate(var(--dot-tx, 0), var(--dot-ty, -50%)) scale(1.03); }
+.wyx-ui_timeline--vertical .wyx-ui_timeline-dot:active { transform: translate(var(--dot-tx, 0), var(--dot-ty, -50%)) scale(0.96); }
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-dot:hover { transform: translate(var(--dot-tx, -50%), var(--dot-ty, -50%)) scale(1.03); }
+.wyx-ui_timeline--horizontal .wyx-ui_timeline-dot:active { transform: translate(var(--dot-tx, -50%), var(--dot-ty, -50%)) scale(0.96); }
+
+/* active styles */
+.wyx-ui_timeline-item.is-active .wyx-ui_timeline-card { border: 1px solid var(--active-color, #3b82f6); box-shadow: 0 2px 10px rgba(59,130,246,.15); }
+.wyx-ui_timeline-item.is-active .wyx-ui_timeline-dot { box-shadow: 0 0 0 4px rgba(59,130,246,.18); }
+.wyx-ui_timeline-dot.is-active-dot { box-shadow: 0 0 0 4px rgba(59,130,246,.18); }
+.wyx-ui_timeline-item.wyx-active .wyx-ui_timeline-card { border: 1px solid var(--active-color, #3b82f6); box-shadow: 0 2px 10px rgba(59,130,246,.15); }
+.wyx-ui_timeline-dot.wyx-active-dot { box-shadow: 0 0 0 4px rgba(59,130,246,.18); }

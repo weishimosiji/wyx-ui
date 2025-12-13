@@ -1,0 +1,44 @@
+.wyx-btn_arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--bg);
+  padding: 0;
+
+  svg {
+    width: 100%;
+    height: 100%;
+
+    path {
+      stroke: var(--primary-text);
+      stroke-width: 10;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: all 0.3s ease;
+      fill: transparent;
+    }
+  }
+}
+.wyx-btn_arrow.arrow-path_right {
+  .arrow-path {
+    d: path("M60,45 L90,75 L60,105");
+  }
+}
+.wyx-btn_arrow.arrow-path_left {
+  .arrow-path {
+    d: path("M90,45 L60,75 L90,105");
+  }
+}
+.wyx-btn_arrow.arrow-path_bottom {
+  .arrow-path {
+    d: path("M45,60 L75,90 L105,60");
+  }
+}
+.wyx-btn_arrow.arrow-path_top {
+  .arrow-path {
+    d: path("M45,90 L75,60 L105,90");
+  }
+}
