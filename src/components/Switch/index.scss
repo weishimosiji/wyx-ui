@@ -1,0 +1,186 @@
+@use '../../theme/index.scss' as *;
+
+.wyx-switch {
+  --switch-min-width: 44px;
+  --switch-height: 22px;
+  --switch-padding: 2px;
+  --switch-duration: 260ms;
+  --switch-ease: cubic-bezier(0.2, 0.9, 0.2, 1);
+
+  --switch-accent: var(--primary-border);
+  --switch-track: var(--bg-light);
+  --switch-track-border: color-mix(in srgb, var(--primary-text) 16%, transparent);
+
+  --switch-handle: #ffffff;
+  --switch-handle-border: color-mix(in srgb, var(--primary-text) 18%, transparent);
+
+  --switch-inner-color: color-mix(in srgb, var(--primary-text) 92%, transparent);
+
+  --switch-checked-color: var(--switch-accent);
+  --switch-unchecked-color: var(--switch-track);
+
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: var(--switch-min-width);
+  height: var(--switch-height);
+  line-height: var(--switch-height);
+  vertical-align: middle;
+  background: var(--switch-unchecked-color);
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: filter var(--switch-duration) var(--switch-ease);
+  user-select: none;
+  padding: var(--switch-padding);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  isolation: isolate;
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), var(--switch-track-shadow), 0 0 0 3px color-mix(in srgb, var(--switch-accent) 28%, transparent);
+  }
+
+  &:hover:not(.wyx-switch-disabled):not(.wyx-switch-loading) {
+    filter: brightness(1.06) saturate(1.05);
+  }
+
+  &.wyx-switch-checked {
+    background: var(--switch-checked-color);
+
+    .wyx-switch-handle {
+      left: 100%;
+      margin-left: calc(-1 * (var(--switch-height) - (var(--switch-padding) * 2)) - var(--switch-padding));
+    }
+
+    .wyx-switch-inner {
+      margin-left: 6px;
+      margin-right: calc(var(--switch-height) + var(--switch-padding));
+    }
+  }
+
+  &.wyx-switch-disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    filter: grayscale(0.12);
+  }
+
+  .wyx-switch-handle {
+    position: absolute;
+    top: 50%;
+    left: var(--switch-padding);
+    width: calc(var(--switch-height) - (var(--switch-padding) * 2));
+    height: calc(var(--switch-height) - (var(--switch-padding) * 2));
+    transform: translateY(-50%);
+    background: var(--switch-handle);
+    border: 1px solid var(--switch-handle-border);
+    border-radius: 50%;
+    transition: all var(--switch-duration) var(--switch-ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: radial-gradient(circle, color-mix(in srgb, var(--switch-checked-color) 52%, transparent), transparent 70%);
+      opacity: 0;
+      filter: blur(1px);
+      transition: opacity var(--switch-duration) var(--switch-ease);
+      pointer-events: none;
+    }
+
+  }
+
+  &.wyx-switch-checked .wyx-switch-handle::before {
+    opacity: 0.85;
+  }
+
+  &:active:not(.wyx-switch-disabled):not(.wyx-switch-loading) {
+    transform: translateY(1px);
+
+    .wyx-switch-handle {
+      width: calc(var(--switch-height) - (var(--switch-padding) * 2) + 6px);
+    }
+
+    &.wyx-switch-checked .wyx-switch-handle {
+      margin-left: calc(-1 * (var(--switch-height) - (var(--switch-padding) * 2) + 6px) - var(--switch-padding));
+    }
+  }
+
+  .wyx-switch-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: calc(var(--switch-height) + var(--switch-padding));
+    margin-right: 6px;
+    color: var(--switch-inner-color);
+    font-size: 12px;
+    transition: margin var(--switch-duration) var(--switch-ease), opacity var(--switch-duration) var(--switch-ease);
+    pointer-events: none;
+    opacity: 0.9;
+    line-height: 1;
+    gap: 6px;
+  }
+
+  &-small {
+    --switch-min-width: 28px;
+    --switch-height: 16px;
+    --switch-padding: 1px;
+  }
+
+  &-large {
+    --switch-min-width: 56px;
+    --switch-height: 28px;
+    --switch-padding: 3px;
+  }
+
+  &-loading-icon {
+    display: inline-block;
+    width: 70%;
+    height: 70%;
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    border-top-color: var(--switch-accent);
+    border-radius: 50%;
+    animation: wyx-switch-loading 0.9s linear infinite;
+  }
+}
+
+@keyframes wyx-switch-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.wyx-switch-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 100px;
+  border: 1px solid transparent;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.wyx-switch:active .wyx-switch-wave {
+  opacity: 1;
+  animation: wyx-switch-wave 0.45s cubic-bezier(0.08, 0.82, 0.17, 1);
+  border-color: color-mix(in srgb, var(--switch-checked-color) 70%, transparent);
+}
+
+@keyframes wyx-switch-wave {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}

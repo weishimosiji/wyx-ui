@@ -8,6 +8,9 @@ import CodeBtn from './CodeBtn/CodeBtn';
 import LikeBtn from './LikeBtn/LikeBtn';
 import ThumbBtn from './ThumbBtn/ThumbBtn';
 import LanguageBtn from './LanguageBtn/LanguageBtn';
+import FireBtn from './FireBtn/FireBtn';
+import DownloadBtn from './DownloadBtn/DownloadBtn';
+import ClockBtn from './ClockBtn/ClockBtn';
 
 
 export default {
@@ -20,5 +23,8 @@ export default {
   CodeBtn,
   LikeBtn,
   ThumbBtn,
-  LanguageBtn
+  LanguageBtn,
+  FireBtn,
+  DownloadBtn,
+  ClockBtn
 };

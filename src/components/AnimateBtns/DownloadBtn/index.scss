@@ -1,0 +1,63 @@
+.wyx-btn_download {
+  position: relative;
+  overflow: hidden;
+}
+
+.wyx-btn_download__icon {
+  position: relative;
+  z-index: 1;
+}
+
+.wyx-btn_download__meter {
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.wyx-btn_download__meterTrack {
+  opacity: 0.25;
+}
+
+.wyx-btn_download__meterTrack,
+.wyx-btn_download__meterFill {
+  stroke-linecap: round;
+  stroke-width: 2.4;
+}
+
+.wyx-btn_download__arrow,
+.wyx-btn_download__tray {
+  transition: transform 160ms ease;
+}
+
+.wyx-btn_download--downloading .wyx-btn_download__meter {
+  opacity: 1;
+}
+
+.wyx-btn_download--downloading .wyx-btn_download__arrow {
+  transform: translateY(-1.4px);
+}
+
+.wyx-btn_download--downloading .wyx-btn_download__tray {
+  transform: translateY(1.4px);
+}
+
+.wyx-btn_download--downloading .wyx-btn_download__arrowBob {
+  animation: wyx-download-arrow-bob 520ms ease-in-out infinite;
+}
+
+@keyframes wyx-download-arrow-bob {
+  0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  75% {
+    transform: translateY(2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

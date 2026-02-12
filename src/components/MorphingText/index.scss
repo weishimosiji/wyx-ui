@@ -1,0 +1,31 @@
+.wyx-ui_morphing-text {
+  display: inline-block;
+  position: relative;
+  vertical-align: baseline;
+  user-select: none;
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+  color: var(--primary-text);
+}
+
+.wyx-ui_morphing-text__svg {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.wyx-ui_morphing-text__sizer {
+  display: inline-block;
+  visibility: hidden;
+}
+
+.wyx-ui_morphing-text__text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  will-change: filter, opacity;
+}

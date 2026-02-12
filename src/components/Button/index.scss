@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../theme/index" as *;
 
 .wyx-btn {
@@ -5,7 +6,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 6px;
-  border: 1px solid $normal-border;
+  border: none;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -26,8 +27,8 @@
   }
 
   &--primary {
-    background-color: $primary-bg;
-    border-color: $primary-border;
+    background-color: $primary-gradient-from;
+    background-image: linear-gradient(120deg, $primary-gradient-from 0%, $primary-gradient-to 100%);
     color: $primary-color;
 
     &:not(:disabled):hover {
@@ -39,17 +40,26 @@
   }
 
   &--secondary {
+    $secondary-from: $secondary-bg;
+    $secondary-to: color.mix($primary-bg, $secondary-bg, 6%);
+
     background-color: $secondary-bg;
-    border-color: $normal-border;
+    background-image: linear-gradient(180deg, $secondary-from 0%, $secondary-to 100%);
     color: $secondary-color;
 
     &:not(:disabled):hover {
-      background-color: #f0f0f0;
-      border-color: #d0d0d0;
+      $secondary-hover-from: #f0f0f0;
+      $secondary-hover-to: color.mix($primary-bg, $secondary-hover-from, 8%);
+
+      background-color: $secondary-hover-from;
+      background-image: linear-gradient(180deg, $secondary-hover-from 0%, $secondary-hover-to 100%);
     }
     &:not(:disabled):active {
-      background-color: #e0e0e0;
-      border-color: #bfbfbf;
+      $secondary-active-from: #e0e0e0;
+      $secondary-active-to: color.mix($primary-bg, $secondary-active-from, 10%);
+
+      background-color: $secondary-active-from;
+      background-image: linear-gradient(180deg, $secondary-active-from 0%, $secondary-active-to 100%);
     }
   }
 

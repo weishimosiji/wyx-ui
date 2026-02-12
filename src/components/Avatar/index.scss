@@ -1,0 +1,58 @@
+.wyx-ui_avatar {
+  width: var(--wyx-avatar-size, 32px);
+  height: var(--wyx-avatar-size, 32px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg-card);
+  color: var(--primary-text);
+  border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+  box-sizing: border-box;
+  flex: 0 0 auto;
+  position: relative;
+  transition: transform 240ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 240ms ease, border-color 240ms ease;
+  will-change: transform;
+}
+
+.wyx-ui_avatar--circle {
+  border-radius: 999px;
+}
+
+.wyx-ui_avatar--square {
+  border-radius: 8px;
+}
+
+.wyx-ui_avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wyx-ui_avatar-fallback {
+  font-size: calc(var(--wyx-avatar-size, 32px) * 0.38);
+  font-weight: 600;
+  line-height: 1;
+  user-select: none;
+}
+
+.wyx-ui_avatar-group {
+  display: inline-flex;
+  align-items: center;
+}
+
+.wyx-ui_avatar-group .wyx-ui_avatar {
+  width: var(--wyx-avatar-size, 32px);
+  height: var(--wyx-avatar-size, 32px);
+  border: 2px solid var(--bg);
+}
+
+.wyx-ui_avatar-group .wyx-ui_avatar--overlap {
+  margin-left: calc(-1 * var(--wyx-avatar-overlap, 8px));
+}
+
+.wyx-ui_avatar-group .wyx-ui_avatar--active {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+  border-color: color-mix(in srgb, var(--primary-border) 35%, var(--bg));
+}

@@ -1,0 +1,336 @@
+.wyx-ui_date-select,
+.wyx-ui_date-select__panel {
+  --wyx-date-select-height: 38px;
+  --wyx-date-select-pad-x: 12px;
+  --wyx-date-select-font: 13px;
+  --wyx-date-select-radius: 12px;
+  --wyx-date-select-trigger-w: 200px;
+  --wyx-date-select-border: color-mix(in srgb, var(--primary-text) 12%, transparent);
+  --wyx-date-select-bg: color-mix(in srgb, var(--bg-light) 90%, transparent);
+  --wyx-date-select-hover: color-mix(in srgb, var(--primary-border) 14%, transparent);
+  --wyx-date-select-accent: color-mix(in srgb, var(--primary-border) 86%, var(--primary-text) 14%);
+  --wyx-date-select-range-bg: color-mix(in srgb, var(--wyx-date-select-accent) 42%, transparent);
+  --wyx-date-select-range-gap: 6px;
+  --wyx-date-select-range-h: 22px;
+
+  display: inline-block;
+}
+
+.wyx-ui_date-select {
+  width: var(--wyx-date-select-trigger-w);
+}
+
+.wyx-ui_date-select.is-sm {
+  --wyx-date-select-height: 32px;
+  --wyx-date-select-pad-x: 10px;
+  --wyx-date-select-font: 12px;
+  --wyx-date-select-radius: 10px;
+}
+
+.wyx-ui_date-select.is-lg {
+  --wyx-date-select-height: 44px;
+  --wyx-date-select-pad-x: 14px;
+  --wyx-date-select-font: 14px;
+  --wyx-date-select-radius: 14px;
+}
+
+.wyx-ui_date-select__trigger {
+  height: var(--wyx-date-select-height);
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0 var(--wyx-date-select-pad-x);
+
+  border-radius: var(--wyx-date-select-radius);
+  border: 1px solid var(--wyx-date-select-border);
+  background: var(--wyx-date-select-bg);
+  color: var(--primary-text);
+  cursor: pointer;
+
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+
+.wyx-ui_date-select__trigger:hover {
+  background: color-mix(in srgb, var(--wyx-date-select-bg) 84%, var(--wyx-date-select-hover));
+  border-color: color-mix(in srgb, var(--primary-border) 26%, transparent);
+}
+
+.wyx-ui_date-select__trigger:active {
+  transform: translateY(0.5px);
+}
+
+.wyx-ui_date-select__trigger:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--primary-border) 55%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-border) 20%, transparent);
+}
+
+.wyx-ui_date-select.is-disabled .wyx-ui_date-select__trigger {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.wyx-ui_date-select.is-readonly .wyx-ui_date-select__trigger {
+  cursor: default;
+}
+
+.wyx-ui_date-select__value {
+  font-size: var(--wyx-date-select-font);
+  line-height: 1;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wyx-ui_date-select__value.is-placeholder {
+  opacity: 0.62;
+}
+
+.wyx-ui_date-select__right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: color-mix(in srgb, var(--primary-text) 72%, transparent);
+}
+
+.wyx-ui_date-select__icon {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wyx-ui_date-select__icon svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.wyx-ui_date-select__clear {
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  color: color-mix(in srgb, var(--primary-text) 65%, transparent);
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.wyx-ui_date-select__clear:hover {
+  background: color-mix(in srgb, var(--primary-text) 8%, transparent);
+  color: var(--primary-text);
+}
+
+.wyx-ui_date-select__clear:active {
+  transform: scale(0.94);
+}
+
+.wyx-ui_date-select__close {
+  width: 16px;
+  height: 16px;
+  display: block;
+}
+
+.wyx-ui_date-select__panel {
+  width: 292px;
+  padding: 10px 10px 12px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg-light) 92%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary-text) 10%, transparent);
+}
+
+.wyx-ui_date-select__panel-head {
+  display: grid;
+  grid-template-columns: 34px 1fr 34px;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0 8px;
+}
+
+.wyx-ui_date-select__month {
+  text-align: center;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.wyx-ui_date-select__nav {
+  width: 34px;
+  height: 34px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 10%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  color: var(--primary-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.wyx-ui_date-select__nav:hover {
+  background: color-mix(in srgb, var(--primary-border) 10%, transparent);
+  border-color: color-mix(in srgb, var(--primary-border) 24%, transparent);
+}
+
+.wyx-ui_date-select__nav:active {
+  transform: scale(0.98);
+}
+
+.wyx-ui_date-select__chev {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.wyx-ui_date-select__week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  padding: 2px 2px 6px;
+  font-size: 11px;
+  opacity: 0.72;
+}
+
+.wyx-ui_date-select__week-cell {
+  text-align: center;
+}
+
+.wyx-ui_date-select__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 2px;
+}
+
+.wyx-ui_date-select__row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  position: relative;
+}
+
+.wyx-ui_date-select__range-bg {
+  --wyx-date-select-col-w: calc((100% - (6 * var(--wyx-date-select-range-gap))) / 7);
+  --wyx-date-select-step: calc(var(--wyx-date-select-col-w) + var(--wyx-date-select-range-gap));
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: calc(var(--wyx-date-select-bg-start, 0) * var(--wyx-date-select-step));
+  right: calc(var(--wyx-date-select-bg-right, 0) * var(--wyx-date-select-step));
+  height: var(--wyx-date-select-range-h);
+  background: var(--wyx-date-select-range-bg);
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 0;
+}
+
+.wyx-ui_date-select__range-bg.is-round-left {
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.wyx-ui_date-select__range-bg.is-round-right {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+.wyx-ui_date-select__cell {
+  height: 34px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--primary-text);
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
+}
+
+.wyx-ui_date-select__panel.is-range .wyx-ui_date-select__cell {
+  position: relative;
+  z-index: 1;
+}
+
+.wyx-ui_date-select__cell-text {
+  position: relative;
+  z-index: 1;
+}
+
+.wyx-ui_date-select__cell.is-out {
+  opacity: 0.35;
+}
+
+.wyx-ui_date-select__cell:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--primary-border) 12%, transparent);
+}
+
+.wyx-ui_date-select__cell:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.wyx-ui_date-select__cell.is-today:not(.is-selected) {
+  border-color: color-mix(in srgb, var(--primary-border) 30%, transparent);
+}
+
+.wyx-ui_date-select__cell.is-selected {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--wyx-date-select-accent) 92%, #ffffff),
+    var(--wyx-date-select-accent)
+  );
+  color: #fff;
+  border-color: color-mix(in srgb, var(--wyx-date-select-accent) 85%, transparent);
+}
+
+.wyx-ui_date-select__panel.is-range {
+  --date-select-range-bg: var(--wyx-date-select-range-bg);
+  --date-select-range-gap: var(--wyx-date-select-range-gap);
+  --date-select-range-h: var(--wyx-date-select-range-h);
+}
+
+.wyx-ui_date-select__panel.is-range .wyx-ui_date-select__cell.is-range-start:not(:disabled),
+.wyx-ui_date-select__panel.is-range .wyx-ui_date-select__cell.is-range-end:not(:disabled) {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--wyx-date-select-accent) 92%, #ffffff), var(--wyx-date-select-accent));
+  color: #fff;
+  border-color: color-mix(in srgb, var(--wyx-date-select-accent) 85%, transparent);
+}
+
+.wyx-ui_date-select__panel.is-range .wyx-ui_date-select__cell.is-range-start:not(:disabled):not(.is-range-end) {
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+}
+
+.wyx-ui_date-select__panel.is-range .wyx-ui_date-select__cell.is-range-end:not(:disabled):not(.is-range-start) {
+  border-top-left-radius: 12px;
+  border-bottom-left-radius: 12px;
+}
+
+.wyx-ui_date-select__cell:disabled {
+  opacity: 0.28;
+  cursor: not-allowed;
+}
+
+.wyx-ui_date-select__limit {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 6px 0;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wyx-ui_date-select__trigger,
+  .wyx-ui_date-select__cell,
+  .wyx-ui_date-select__nav,
+  .wyx-ui_date-select__clear {
+    transition: none;
+  }
+}

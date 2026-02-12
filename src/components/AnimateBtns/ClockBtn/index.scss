@@ -1,0 +1,35 @@
+.wyx-btn_clock {
+  position: relative;
+}
+
+.wyx-btn_clock__icon {
+  width: 100%;
+  height: 100%;
+}
+
+.wyx-btn_clock__labelText {
+  letter-spacing: 0.4px;
+}
+
+.wyx-btn_clock--ringing {
+  transform-origin: center;
+  animation: wyx-clock-shake 90ms ease-in-out infinite;
+}
+
+@keyframes wyx-clock-shake {
+  0% {
+    transform: rotate(0deg) translateX(0);
+  }
+  25% {
+    transform: rotate(-6deg) translateX(-1px);
+  }
+  50% {
+    transform: rotate(0deg) translateX(0);
+  }
+  75% {
+    transform: rotate(6deg) translateX(1px);
+  }
+  100% {
+    transform: rotate(0deg) translateX(0);
+  }
+}

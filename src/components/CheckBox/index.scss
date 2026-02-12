@@ -1,0 +1,204 @@
+.wyx-checkbox-group {
+  display: flex;
+  gap: 10px;
+}
+
+.wyx-checkbox-group.is-vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.wyx-checkbox-group.is-horizontal {
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.wyx-checkbox {
+  --wyx-checkbox-size: 18px;
+  --wyx-checkbox-radius: 6px;
+  --wyx-checkbox-bg: color-mix(in srgb, var(--bg-light) 72%, transparent);
+  --wyx-checkbox-border: color-mix(in srgb, var(--primary-text) 16%, transparent);
+  --wyx-checkbox-active: var(--primary-border);
+  --wyx-checkbox-active-soft: color-mix(in srgb, var(--primary-border) 22%, transparent);
+  --wyx-checkbox-text: var(--primary-text);
+  --wyx-checkbox-muted: color-mix(in srgb, var(--primary-text) 62%, transparent);
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  color: var(--wyx-checkbox-text);
+}
+
+.wyx-checkbox.is-sm {
+  --wyx-checkbox-size: 16px;
+  --wyx-checkbox-radius: 6px;
+}
+
+.wyx-checkbox.is-md {
+  --wyx-checkbox-size: 18px;
+  --wyx-checkbox-radius: 7px;
+}
+
+.wyx-checkbox.is-lg {
+  --wyx-checkbox-size: 22px;
+  --wyx-checkbox-radius: 8px;
+}
+
+.wyx-checkbox__input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.wyx-checkbox__control {
+  position: relative;
+  width: var(--wyx-checkbox-size);
+  height: var(--wyx-checkbox-size);
+  border-radius: var(--wyx-checkbox-radius);
+  background: var(--wyx-checkbox-bg);
+  border: 1px solid var(--wyx-checkbox-border);
+  box-shadow:
+    0 1px 0 rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px color-mix(in srgb, var(--primary-text) 6%, transparent);
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 220ms ease;
+}
+
+.wyx-checkbox__control::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 14px;
+  background: radial-gradient(circle, var(--wyx-checkbox-active-soft) 0%, color-mix(in srgb, var(--primary-border) 0%, transparent) 58%);
+  transform: scale(0.6);
+  opacity: 0;
+  transition: opacity 220ms ease, transform 220ms ease;
+  pointer-events: none;
+}
+
+.wyx-checkbox__control::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid rgba(255, 255, 255, 0.98);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.98);
+  transform: translate(-50%, -58%) rotate(-45deg) scale(0);
+  transform-origin: center;
+  opacity: 0;
+  transition: transform 220ms cubic-bezier(0.2, 0.85, 0.2, 1.2), opacity 160ms ease;
+}
+
+.wyx-checkbox__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wyx-checkbox__prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bg-light) 78%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+}
+
+.wyx-checkbox__text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wyx-checkbox__label {
+  font-size: 14px;
+  line-height: 1.1;
+}
+
+.wyx-checkbox__desc {
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--wyx-checkbox-muted);
+}
+
+.wyx-checkbox.is-default:hover:not(.is-disabled) .wyx-checkbox__control {
+  border-color: color-mix(in srgb, var(--primary-text) 28%, transparent);
+  transform: translateY(-1px);
+}
+
+.wyx-checkbox.is-checked .wyx-checkbox__control {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--wyx-checkbox-active) 92%, #ffffff) 0%, var(--wyx-checkbox-active) 100%);
+  border-color: color-mix(in srgb, var(--wyx-checkbox-active) 78%, transparent);
+  box-shadow:
+    0 10px 24px color-mix(in srgb, var(--wyx-checkbox-active) 22%, transparent),
+    inset 0 0 0 1px color-mix(in srgb, #ffffff 14%, transparent);
+}
+
+.wyx-checkbox.is-checked .wyx-checkbox__control::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.wyx-checkbox.is-checked .wyx-checkbox__control::after {
+  opacity: 1;
+  transform: translate(-50%, -58%) rotate(-45deg) scale(1);
+}
+
+.wyx-checkbox:active:not(.is-disabled) .wyx-checkbox__control {
+  transform: translateY(0) scale(0.96);
+}
+
+.wyx-checkbox.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.wyx-checkbox__input:focus-visible + .wyx-checkbox__control {
+  outline: 2px solid color-mix(in srgb, var(--primary-border) 75%, transparent);
+  outline-offset: 3px;
+}
+
+.wyx-checkbox.is-card {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg-light) 74%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary-text) 10%, transparent);
+  transition: transform 160ms ease, background 220ms ease, border-color 220ms ease;
+}
+
+.wyx-checkbox.is-card:hover:not(.is-disabled) {
+  background: color-mix(in srgb, var(--bg-light) 80%, transparent);
+  border-color: color-mix(in srgb, var(--primary-text) 16%, transparent);
+  transform: translateY(-1px);
+}
+
+.wyx-checkbox.is-card.is-checked {
+  border-color: color-mix(in srgb, var(--primary-border) 45%, transparent);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--primary-border) 16%, transparent) 0%, color-mix(in srgb, var(--bg-light) 86%, transparent) 100%);
+}
+
+.wyx-checkbox__input:indeterminate + .wyx-checkbox__control::after {
+  width: 10px;
+  height: 0;
+  border-left: 0;
+  border-bottom: 0;
+  border-top: 2px solid color-mix(in srgb, var(--primary-text) 92%, transparent);
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}

@@ -1,0 +1,35 @@
+.wyx-ui_fire-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 180ms cubic-bezier(0.34, 1.56, 0.64, 1), opacity 180ms ease, filter 180ms ease;
+}
+
+.wyx-ui_fire-btn:hover {
+  transform: scale(1.06);
+}
+
+.wyx-ui_fire-btn:active {
+  transform: scale(0.94);
+}
+
+.wyx-ui_fire-btn:not(.wyx-ui_fire-btn-burning) {
+  opacity: 0.75;
+  filter: grayscale(1);
+}
+
+.wyx-ui_fire-flame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wyx-ui_fire-flame svg {
+  display: block;
+  overflow: visible;
+}
+
+.wyx-ui_fire-btn-burning .wyx-ui_fire-flame {
+  filter: drop-shadow(0 0 12px color-mix(in srgb, #fb923c 55%, transparent));
+}

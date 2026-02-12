@@ -1,0 +1,229 @@
+@use "../../theme/index" as *;
+
+.wyx-range {
+  --wyx-range-track-height: 10px;
+  --wyx-range-thumb-size: 18px;
+  --wyx-range-track-bg: color-mix(in oklab, var(--primary-text), transparent 85%);
+  --wyx-range-fill-bg: linear-gradient(120deg, #{$primary-gradient-from} 0%, #{$primary-gradient-to} 100%);
+  --wyx-range-thumb-bg: #{$primary-gradient-from};
+  --wyx-range-thumb-radius: 999px;
+  --wyx-range-thumb-border: none;
+  --wyx-range-thumb-shadow: 0 6px 18px #00000020, 0 2px 8px #00000025;
+  --wyx-range-thumb-shadow-active: 0 10px 28px #00000030, 0 2px 10px #00000035;
+  --wyx-range-tooltip-bg: color-mix(in oklab, var(--bg-light), #000 22%);
+  --wyx-range-tooltip-text: var(--primary-text);
+  --wyx-range-tooltip-border: color-mix(in oklab, var(--primary-text), transparent 82%);
+  --wyx-range-tooltip-shadow: 0 12px 30px #00000022;
+  --wyx-range-tooltip-radius: 999px;
+  --wyx-range-tooltip-padding: 6px 10px;
+  --wyx-range-tooltip-font-size: 12px;
+  --wyx-range-tooltip-gap: 5px;
+  --wyx-range-tooltip-lift: 4px;
+  --wyx-range-tooltip-arrow-size: 10px;
+
+  width: 100%;
+  min-width: 120px;
+  padding: 10px 2px;
+  box-sizing: border-box;
+}
+
+.wyx-range__wrap {
+  position: relative;
+  width: 100%;
+  height: max(var(--wyx-range-thumb-size), calc(var(--wyx-range-track-height) + 18px));
+}
+
+.wyx-range__track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: var(--wyx-range-track-height);
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: var(--wyx-range-track-bg);
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wyx-range__fill {
+  height: 100%;
+  width: var(--wyx-range-percent);
+  background: var(--wyx-range-fill-bg);
+  border-radius: 999px;
+}
+
+.wyx-range--custom-fill .wyx-range__fill {
+  background: transparent;
+}
+
+.wyx-range__input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.wyx-range__input:disabled {
+  cursor: not-allowed;
+}
+
+.wyx-range__input::-webkit-slider-runnable-track {
+  height: var(--wyx-range-track-height);
+  background: transparent;
+}
+
+.wyx-range__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--wyx-range-thumb-size);
+  height: var(--wyx-range-thumb-size);
+  margin-top: calc((var(--wyx-range-track-height) - var(--wyx-range-thumb-size)) / 2);
+  border-radius: var(--wyx-range-thumb-radius);
+  border: var(--wyx-range-thumb-border);
+  background: var(--wyx-range-thumb-bg);
+  box-shadow: var(--wyx-range-thumb-shadow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+
+.wyx-range--active .wyx-range__input::-webkit-slider-thumb {
+  box-shadow: var(--wyx-range-thumb-shadow-active);
+  transform: translateY(-1px) scale(1.03);
+  filter: saturate(1.08);
+}
+
+.wyx-range__input::-moz-range-track {
+  height: var(--wyx-range-track-height);
+  background: transparent;
+  border: none;
+}
+
+.wyx-range__input::-moz-range-thumb {
+  width: var(--wyx-range-thumb-size);
+  height: var(--wyx-range-thumb-size);
+  border-radius: var(--wyx-range-thumb-radius);
+  border: var(--wyx-range-thumb-border);
+  background: var(--wyx-range-thumb-bg);
+  box-shadow: var(--wyx-range-thumb-shadow);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, filter 0.2s ease;
+}
+
+.wyx-range__tooltip {
+  position: absolute;
+  top: auto;
+  bottom: calc(50% + var(--wyx-range-thumb-size) / 2 + var(--wyx-range-tooltip-gap));
+  transform: translateX(-50%);
+  padding: var(--wyx-range-tooltip-padding);
+  font-size: var(--wyx-range-tooltip-font-size);
+  line-height: 1;
+  border-radius: var(--wyx-range-tooltip-radius);
+  background: var(--wyx-range-tooltip-bg);
+  color: var(--wyx-range-tooltip-text);
+  border: 1px solid var(--wyx-range-tooltip-border);
+  box-shadow: var(--wyx-range-tooltip-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.16s ease, transform 0.16s ease;
+  white-space: nowrap;
+}
+
+.wyx-range__tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(-1 * var(--wyx-range-tooltip-arrow-size) / 2);
+  width: var(--wyx-range-tooltip-arrow-size);
+  height: var(--wyx-range-tooltip-arrow-size);
+  transform: translateX(-50%) rotate(45deg);
+  background: var(--wyx-range-tooltip-bg);
+  border-right: 1px solid var(--wyx-range-tooltip-border);
+  border-bottom: 1px solid var(--wyx-range-tooltip-border);
+}
+
+.wyx-range__tooltip.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(calc(-1 * var(--wyx-range-tooltip-lift)));
+}
+
+.wyx-range__thumb {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  pointer-events: none;
+}
+
+.wyx-range--custom-thumb .wyx-range__input::-webkit-slider-thumb {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  filter: none;
+  transform: none;
+}
+
+.wyx-range--custom-thumb .wyx-range__input::-moz-range-thumb {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  filter: none;
+  transform: none;
+}
+
+.wyx-range__marks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(50% + var(--wyx-range-track-height) / 2 + 8px);
+  height: 34px;
+  pointer-events: none;
+}
+
+.wyx-range__mark {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: color-mix(in oklab, var(--primary-text), transparent 30%);
+  pointer-events: none;
+}
+
+.wyx-range__mark.is-clickable {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.wyx-range__mark-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--primary-text), transparent 72%);
+  box-shadow: 0 6px 16px #00000020;
+  transition: transform 0.16s ease, background 0.16s ease;
+}
+
+.wyx-range__mark.is-on .wyx-range__mark-dot {
+  background: var(--wyx-range-fill-bg);
+  transform: scale(1.12);
+}
+
+.wyx-range__mark-label {
+  line-height: 1.1;
+}
+
+.wyx-range--disabled {
+  opacity: 0.55;
+}
+
+.wyx-range--disabled .wyx-range__mark.is-clickable {
+  pointer-events: none;
+  cursor: default;
+}

@@ -1,0 +1,311 @@
+.wyx-ui_select {
+  position: relative;
+  display: inline-flex;
+  width: 220px;
+  color: var(--primary-text);
+}
+
+.wyx-ui_select-trigger {
+  width: 100%;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 10px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+  background: color-mix(in srgb, var(--bg-light) 82%, transparent);
+  color: var(--primary-text);
+  box-shadow: var(--shadow-s);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    background: color-mix(in srgb, var(--bg-light) 88%, transparent);
+    border-color: color-mix(in srgb, var(--primary-text) 18%, transparent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-m);
+  }
+
+  &:active {
+    transform: translateY(0px);
+    box-shadow: var(--shadow-s);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-border) 30%, transparent), var(--shadow-m);
+    border-color: color-mix(in srgb, var(--primary-border) 70%, transparent);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+    transform: none;
+    box-shadow: var(--shadow-s);
+  }
+}
+
+.wyx-ui_select.has-value .wyx-ui_select-value {
+  color: var(--primary-text);
+}
+
+.wyx-ui_select:not(.has-value) .wyx-ui_select-value {
+  color: color-mix(in srgb, var(--primary-text) 62%, transparent);
+}
+
+.wyx-ui_select-value {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.wyx-ui_select-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.wyx-ui_select-actions .wyx-btn_arrow {
+  background: transparent;
+  border: none;
+  padding: 0;
+  border-radius: 6px;
+  cursor: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wyx-ui_select-clear {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  background: color-mix(in srgb, var(--primary-text) 10%, transparent);
+  color: var(--primary-text);
+  transition: transform 140ms ease, background 160ms ease;
+
+  &:hover {
+    transform: scale(1.06);
+    background: color-mix(in srgb, var(--primary-text) 14%, transparent);
+  }
+}
+
+.wyx-ui_select-dropdown {
+  position: fixed;
+  z-index: 10000;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 10%, transparent);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-l);
+  opacity: 0;
+  transform: translateY(-6px) scale(0.985);
+  transform-origin: var(--wyx-ui_select-origin, top center);
+  pointer-events: none;
+  transition: opacity 160ms ease, transform 180ms cubic-bezier(0.2, 0.9, 0.2, 1);
+  overflow: hidden;
+}
+
+.wyx-ui_select-dropdown,
+.wyx-ui_select-dropdown * {
+  box-sizing: border-box;
+}
+
+.wyx-ui_select-dropdown.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.wyx-ui_select-dropdown .wyx-ui_select-search {
+  padding: 10px 10px 8px 10px;
+  background: color-mix(in srgb, var(--bg-light) 70%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--primary-text) 10%, transparent);
+}
+
+.wyx-ui_select-dropdown .wyx-ui_select-search-input {
+  width: 100%;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  color: var(--primary-text);
+  padding: 0 10px;
+  outline: none;
+  font-size: 12px;
+  transition: box-shadow 160ms ease, border-color 160ms ease;
+
+  &:focus {
+    border-color: color-mix(in srgb, var(--primary-border) 55%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-border) 24%, transparent);
+  }
+}
+
+.wyx-ui_select-dropdown .wyx-ui_select-options {
+  padding: 8px;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.wyx-ui_select-dropdown .wyx-ui_select-empty {
+  padding: 12px 10px;
+  border-radius: 10px;
+  color: color-mix(in srgb, var(--primary-text) 60%, transparent);
+  background: color-mix(in srgb, var(--bg-light) 55%, transparent);
+  text-align: center;
+  font-size: 12px;
+}
+
+.wyx-ui_select-option {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--primary-text);
+  border-radius: 10px;
+  padding: 10px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 140ms ease, background 140ms ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: color-mix(in srgb, var(--primary-text) 8%, transparent);
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-border) 25%, transparent);
+  }
+}
+
+.wyx-ui_select-option.is-simple {
+  padding: 8px 10px;
+}
+
+.wyx-ui_select-option.is-active {
+  background: color-mix(in srgb, var(--primary-text) 10%, transparent);
+}
+
+.wyx-ui_select-option.is-selected {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--primary-border) 18%, transparent),
+    color-mix(in srgb, var(--primary-text) 8%, transparent)
+  );
+}
+
+.wyx-ui_select-option.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+
+.wyx-ui_select-option-prefix {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--primary-text) 10%, transparent);
+  flex-shrink: 0;
+}
+
+.wyx-ui_select-option-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.wyx-ui_select-option-label {
+  font-size: 13px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wyx-ui_select-option-label.is-simple {
+  flex: 1;
+  min-width: 0;
+  font-weight: 500;
+}
+
+.wyx-ui_select-option-desc {
+  font-size: 11px;
+  color: color-mix(in srgb, var(--primary-text) 62%, transparent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wyx-ui_select-option-check {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--primary-text) 35%, transparent);
+  flex-shrink: 0;
+  position: relative;
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.wyx-ui_select-option.is-selected .wyx-ui_select-option-check {
+  background: color-mix(in srgb, var(--primary-border) 65%, transparent);
+  border-color: color-mix(in srgb, var(--primary-border) 85%, transparent);
+  transform: scale(1.05);
+}
+
+.wyx-ui_select.is-open .wyx-ui_select-trigger {
+  background: color-mix(in srgb, var(--bg-light) 92%, transparent);
+  border-color: color-mix(in srgb, var(--primary-border) 55%, transparent);
+}
+
+@keyframes wyx-ui_select_pulse {
+  0% {
+    box-shadow: var(--shadow-s);
+  }
+  40% {
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary-border) 22%, transparent), var(--shadow-m);
+  }
+  100% {
+    box-shadow: var(--shadow-s);
+  }
+}
+
+.wyx-ui_select-trigger.is-pulsing {
+  animation: wyx-ui_select_pulse 320ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wyx-ui_select-trigger,
+  .wyx-ui_select-dropdown,
+  .wyx-ui_select-option,
+  .wyx-ui_select-chevron {
+    transition: none !important;
+  }
+  .wyx-ui_select-trigger.is-pulsing {
+    animation: none !important;
+  }
+}

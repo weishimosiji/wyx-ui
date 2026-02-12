@@ -1,0 +1,65 @@
+.wyx-ui_badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.wyx-ui_badge-node {
+  --wyx-badge-bg: #f43f5e;
+  --wyx-badge-color: #fff;
+  --wyx-badge-offset-x: 0px;
+  --wyx-badge-offset-y: 0px;
+  position: absolute;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--wyx-badge-bg);
+  color: var(--wyx-badge-color);
+  box-shadow: var(--shadow-s);
+  font-size: 12px;
+  line-height: 1;
+  padding: 0 6px;
+  height: 18px;
+  min-width: 18px;
+  border-radius: 999px;
+  transform: translate(var(--wyx-badge-offset-x), var(--wyx-badge-offset-y));
+  box-sizing: border-box;
+}
+
+.wyx-ui_badge-node--dot {
+  width: 10px;
+  min-width: 10px;
+  height: 10px;
+  padding: 0;
+  border-radius: 50%;
+}
+
+.wyx-ui_badge-text {
+  display: inline-block;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.wyx-ui_badge-node--with-children {
+  pointer-events: none;
+}
+
+.wyx-ui_badge-node--standalone {
+  position: static;
+  transform: translate(var(--wyx-badge-offset-x), var(--wyx-badge-offset-y));
+}
+
+.wyx-ui_badge-node--top-right { top: 0; right: 0; transform: translate(50%, -50%) translate(var(--wyx-badge-offset-x), var(--wyx-badge-offset-y)); }
+.wyx-ui_badge-node--top-left { top: 0; left: 0; transform: translate(-50%, -50%) translate(var(--wyx-badge-offset-x), var(--wyx-badge-offset-y)); }
+.wyx-ui_badge-node--bottom-right { bottom: 0; right: 0; transform: translate(50%, 50%) translate(var(--wyx-badge-offset-x), var(--wyx-badge-offset-y)); }
+.wyx-ui_badge-node--bottom-left { bottom: 0; left: 0; transform: translate(-50%, 50%) translate(var(--wyx-badge-offset-x), var(--wyx-badge-offset-y)); }
+
+.wyx-ui_badge-node--default { --wyx-badge-bg: #64748b; }
+.wyx-ui_badge-node--primary { --wyx-badge-bg: #2563eb; }
+.wyx-ui_badge-node--success { --wyx-badge-bg: #10b981; }
+.wyx-ui_badge-node--warning { --wyx-badge-bg: #f59e0b; }
+.wyx-ui_badge-node--danger { --wyx-badge-bg: #f43f5e; }
+.wyx-ui_badge-node--info { --wyx-badge-bg: #06b6d4; }
+

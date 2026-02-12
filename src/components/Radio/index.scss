@@ -1,0 +1,214 @@
+.wyx-radio-group {
+  display: inline-flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.wyx-radio-group.is-vertical {
+  flex-direction: column;
+}
+
+.wyx-radio-group.is-horizontal {
+  flex-direction: row;
+}
+
+.wyx-radio {
+  --wyx-radio-size: 16px;
+  --wyx-radio-ring: color-mix(in srgb, var(--primary-text) 35%, transparent);
+  --wyx-radio-dot: color-mix(in srgb, var(--primary-border) 75%, transparent);
+  --wyx-radio-bg: transparent;
+  --wyx-radio-bg-checked: color-mix(in srgb, var(--primary-border) 16%, transparent);
+  --wyx-radio-shadow: 0 0 0 0 transparent;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  color: var(--primary-text);
+  transform: translateY(0);
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.wyx-radio.is-sm {
+  --wyx-radio-size: 14px;
+}
+
+.wyx-radio.is-lg {
+  --wyx-radio-size: 18px;
+}
+
+.wyx-radio.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.wyx-radio__input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 1px;
+  height: 1px;
+}
+
+.wyx-radio__control {
+  width: var(--wyx-radio-size);
+  height: var(--wyx-radio-size);
+  border-radius: 999px;
+  border: 2px solid var(--wyx-radio-ring);
+  background: var(--wyx-radio-bg);
+  position: relative;
+  flex-shrink: 0;
+  box-shadow: var(--wyx-radio-shadow);
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.wyx-radio__control::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 999px;
+  background: var(--wyx-radio-dot);
+  transform: scale(0);
+  transition: transform 160ms cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.wyx-radio__control::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 999px;
+  opacity: 0;
+  transform: scale(0.2);
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--primary-border) 26%, transparent),
+    transparent 62%
+  );
+  pointer-events: none;
+}
+
+.wyx-radio__content {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.wyx-radio__prefix {
+  width: 22px;
+  height: 22px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--primary-text) 10%, transparent);
+  flex-shrink: 0;
+}
+
+.wyx-radio__text {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.wyx-radio__label {
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wyx-radio__desc {
+  font-size: 11px;
+  color: color-mix(in srgb, var(--primary-text) 62%, transparent);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wyx-radio:hover:not(.is-disabled) {
+  transform: translateY(-1px);
+}
+
+.wyx-radio:hover:not(.is-disabled) .wyx-radio__control {
+  border-color: color-mix(in srgb, var(--primary-border) 55%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary-border) 12%, transparent);
+}
+
+.wyx-radio__input:focus-visible + .wyx-radio__control {
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary-border) 16%, transparent), 0 0 0 2px color-mix(in srgb, var(--primary-border) 55%, transparent);
+  border-color: color-mix(in srgb, var(--primary-border) 75%, transparent);
+}
+
+.wyx-radio.is-checked .wyx-radio__control {
+  border-color: color-mix(in srgb, var(--primary-border) 80%, transparent);
+  background: var(--wyx-radio-bg-checked);
+  transform: scale(1.03);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary-border) 10%, transparent);
+}
+
+.wyx-radio.is-checked .wyx-radio__control::after {
+  transform: scale(1);
+}
+
+.wyx-radio.is-checked .wyx-radio__control::before {
+  animation: wyx-radio-ripple 520ms cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.wyx-radio.is-card {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 10%, transparent);
+  background: color-mix(in srgb, var(--bg-light) 72%, transparent);
+  box-shadow: var(--shadow-s);
+  transition: transform 160ms ease, background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+  min-width: 220px;
+}
+
+.wyx-radio.is-card:hover:not(.is-disabled) {
+  background: color-mix(in srgb, var(--bg-light) 82%, transparent);
+  border-color: color-mix(in srgb, var(--primary-text) 16%, transparent);
+  box-shadow: var(--shadow-m);
+}
+
+.wyx-radio.is-card.is-checked {
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary-border) 18%, transparent),
+    color-mix(in srgb, var(--bg-light) 84%, transparent)
+  );
+  border-color: color-mix(in srgb, var(--primary-border) 40%, transparent);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--primary-border) 10%, transparent), var(--shadow-m);
+}
+
+@keyframes wyx-radio-ripple {
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wyx-radio,
+  .wyx-radio__control {
+    transition: none !important;
+  }
+  .wyx-radio.is-checked .wyx-radio__control::before {
+    animation: none !important;
+  }
+}
+

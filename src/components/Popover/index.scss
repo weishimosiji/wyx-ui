@@ -4,7 +4,7 @@
 }
 
 .wyx-ui_popover {
-  position: absolute;
+  position: fixed;
   background: var(--bg-light);
   color: var(--primary-text);
   box-shadow: var(--shadow-s);
@@ -17,7 +17,7 @@
   pointer-events: none;
   transform: translate3d(0, 0, 0) scale(0.98);
   transition: opacity 160ms ease, transform 160ms ease;
-  z-index: 1002;
+  z-index: 9999;
 }
 
 .wyx-ui_popover--open {
@@ -40,11 +40,9 @@
 }
 
 .wyx-ui_popover--top {
-  left: 50%;
-  bottom: calc(100% + var(--popover-offset));
-  transform: translate(-50%, 6px) scale(0.98);
+  transform: translate3d(0, 6px, 0) scale(0.98);
 }
-.wyx-ui_popover--top.wyx-ui_popover--open { transform: translate(-50%, 0) scale(1); }
+.wyx-ui_popover--top.wyx-ui_popover--open { transform: translate3d(0, 0, 0) scale(1); }
 .wyx-ui_popover-arrow--top {
   left: 50%;
   bottom: -4px;
@@ -54,11 +52,9 @@
 }
 
 .wyx-ui_popover--bottom {
-  left: 50%;
-  top: calc(100% + var(--popover-offset));
-  transform: translate(-50%, -6px) scale(0.98);
+  transform: translate3d(0, -6px, 0) scale(0.98);
 }
-.wyx-ui_popover--bottom.wyx-ui_popover--open { transform: translate(-50%, 0) scale(1); }
+.wyx-ui_popover--bottom.wyx-ui_popover--open { transform: translate3d(0, 0, 0) scale(1); }
 .wyx-ui_popover-arrow--bottom {
   left: 50%;
   top: -6px;
@@ -68,11 +64,9 @@
 }
 
 .wyx-ui_popover--left {
-  right: calc(100% + var(--popover-offset));
-  top: 50%;
-  transform: translate(6px, -50%) scale(0.98);
+  transform: translate3d(6px, 0, 0) scale(0.98);
 }
-.wyx-ui_popover--left.wyx-ui_popover--open { transform: translate(0, -50%) scale(1); }
+.wyx-ui_popover--left.wyx-ui_popover--open { transform: translate3d(0, 0, 0) scale(1); }
 .wyx-ui_popover-arrow--left {
   right: -6px;
   top: 50%;
@@ -82,11 +76,9 @@
 }
 
 .wyx-ui_popover--right {
-  left: calc(100% + var(--popover-offset));
-  top: 50%;
-  transform: translate(-6px, -50%) scale(0.98);
+  transform: translate3d(-6px, 0, 0) scale(0.98);
 }
-.wyx-ui_popover--right.wyx-ui_popover--open { transform: translate(0, -50%) scale(1); }
+.wyx-ui_popover--right.wyx-ui_popover--open { transform: translate3d(0, 0, 0) scale(1); }
 .wyx-ui_popover-arrow--right {
   left: -6px;
   top: 50%;

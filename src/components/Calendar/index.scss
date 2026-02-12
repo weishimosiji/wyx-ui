@@ -1,0 +1,350 @@
+.wyx-ui_calendar {
+  width: 320px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-l);
+  color: var(--primary-text);
+}
+
+.wyx-ui_calendar,
+.wyx-ui_calendar * {
+  box-sizing: border-box;
+}
+
+.wyx-ui_calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.wyx-ui_calendar__month {
+  flex: 1;
+  text-align: center;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-size: 14px;
+  user-select: none;
+}
+
+.wyx-ui_calendar__nav-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+  background: color-mix(in srgb, var(--bg-light) 70%, transparent);
+  color: var(--primary-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-s);
+  transition: transform 140ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    transform: translateY(-1px) scale(1.03);
+    box-shadow: var(--shadow-m);
+    background: color-mix(in srgb, var(--bg-light) 82%, transparent);
+    border-color: color-mix(in srgb, var(--primary-text) 18%, transparent);
+  }
+
+  &:active {
+    transform: translateY(0px) scale(1);
+    box-shadow: var(--shadow-s);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--primary-border) 30%, transparent), var(--shadow-m);
+    border-color: color-mix(in srgb, var(--primary-border) 70%, transparent);
+  }
+}
+
+.wyx-ui_calendar__chev {
+  width: 18px;
+  height: 18px;
+  transition: transform 160ms ease;
+}
+
+.wyx-ui_calendar__week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  margin-bottom: 8px;
+}
+
+.wyx-ui_calendar__week-item {
+  font-size: 11px;
+  text-align: center;
+  opacity: 0.72;
+  user-select: none;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wyx-ui_calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.wyx-ui_calendar__grid.is-next {
+  animation: wyx-ui_calendar_slide_next 200ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.wyx-ui_calendar__grid.is-prev {
+  animation: wyx-ui_calendar_slide_prev 200ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
+}
+
+.wyx-ui_calendar__day {
+  position: relative;
+  height: 42px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--primary-text);
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 120ms ease, filter 120ms ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    background: radial-gradient(
+      140px circle at var(--x, 50%) var(--y, 50%),
+      color-mix(in srgb, var(--primary-border) 16%, transparent),
+      transparent 60%
+    );
+    opacity: 0;
+    transition: opacity 90ms ease;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 8px;
+    opacity: 0;
+    background: transparent;
+    transition: opacity 90ms ease;
+    pointer-events: none;
+  }
+}
+
+.wyx-ui_calendar__day-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  color: var(--primary-text);
+  padding: 0;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  z-index: 2;
+}
+
+.wyx-ui_calendar__mark-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 7px;
+  bottom: 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--wyx-ui-calendar-mark-color, var(--primary-border)) 18%, transparent);
+  opacity: 0;
+  transition: opacity 90ms ease, background 120ms ease;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wyx-ui_calendar__day.is-range .wyx-ui_calendar__mark-bg {
+  opacity: 1;
+}
+
+.wyx-ui_calendar__day.is-drag .wyx-ui_calendar__mark-bg {
+  opacity: 1;
+  background: color-mix(in srgb, var(--wyx-ui-calendar-mark-color, var(--primary-border)) 12%, transparent);
+}
+
+.wyx-ui_calendar__day.is-range-prev .wyx-ui_calendar__mark-bg,
+.wyx-ui_calendar__day.is-drag-prev .wyx-ui_calendar__mark-bg {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.wyx-ui_calendar__day.is-range-next .wyx-ui_calendar__mark-bg,
+.wyx-ui_calendar__day.is-drag-next .wyx-ui_calendar__mark-bg {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.wyx-ui_calendar__mark-slot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.wyx-ui_calendar__mark-default {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.wyx-ui_calendar__mark-badge {
+  width: 7px;
+  height: 7px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary-text) 12%, transparent);
+}
+
+.wyx-ui_calendar__day:not(.is-disabled):hover::before {
+  opacity: 1;
+}
+
+.wyx-ui_calendar__day:not(.is-disabled):active::before {
+  opacity: 0.55;
+}
+
+.wyx-ui_calendar__day:focus-visible {
+  outline: none;
+}
+
+.wyx-ui_calendar__day:focus-visible::after {
+  opacity: 1;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-border) 45%, transparent);
+}
+
+.wyx-ui_calendar__day.is-outside {
+  opacity: 0.48;
+}
+
+.wyx-ui_calendar__day.is-disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  filter: grayscale(0.2);
+  pointer-events: none;
+}
+
+.wyx-ui_calendar__day.is-today::after {
+  opacity: 1;
+  background: color-mix(in srgb, var(--primary-border) 10%, transparent);
+}
+
+.wyx-ui_calendar__day.is-selected::after {
+  opacity: 1;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary-border) 34%, transparent),
+    color-mix(in srgb, var(--primary-text) 8%, transparent)
+  );
+}
+
+.wyx-ui_calendar__day.is-hidden {
+  height: 42px;
+}
+
+.wyx-ui_calendar__day-num {
+  font-size: 13px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  line-height: 1;
+}
+
+.wyx-ui_calendar__sub {
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.72;
+  position: relative;
+  z-index: 1;
+  user-select: none;
+  max-width: calc(100% - 8px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wyx-ui_calendar__sub.is-cn {
+  opacity: 0.92;
+  color: color-mix(in srgb, var(--wyx-ui-calendar-sub-color, var(--primary-text)) 92%, transparent);
+}
+
+.wyx-ui_calendar__sub.is-intl {
+  opacity: 0.85;
+  color: color-mix(in srgb, var(--wyx-ui-calendar-sub-color, var(--primary-text)) 88%, transparent);
+}
+
+.wyx-ui_calendar__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+.wyx-ui_calendar__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--primary-text) 12%, transparent);
+}
+
+@keyframes wyx-ui_calendar_pop {
+  0% {
+    transform: translateY(-2px) scale(1.02);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.07);
+  }
+  100% {
+    transform: translateY(-2px) scale(1.02);
+  }
+}
+
+@keyframes wyx-ui_calendar_slide_next {
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes wyx-ui_calendar_slide_prev {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}

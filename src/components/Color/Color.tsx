@@ -30,6 +30,7 @@ export interface ColorProps {
   onChange?: (hex: string, detail: { hsv: HSV; rgb: { r: number; g: number; b: number }; alpha: number; rgba: string }) => void;
   width?: number | string;
   height?: number | string;
+  simple?: boolean;
   showAlpha?: boolean;
   showConverter?: boolean;
   preset?: string[];
@@ -43,6 +44,7 @@ export default function Color({
   onChange,
   width = 260,
   height,
+  simple = false,
   showAlpha = true,
   showConverter = true,
   className,
@@ -260,80 +262,82 @@ export default function Color({
         </div>
       )}
       
-      <div className="wyx-ui_color-controls">
-        <div className="wyx-ui_color-row">
-          <div className="wyx-ui_color-preview" style={{ background: `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})` }} />
-          <div className="wyx-ui_color-hex-group">
-            <input 
-              className="wyx-ui_color-input"
-              value={localHex}
-              onChange={e => handleHexInput(e.target.value)}
-              onBlur={handleHexBlur}
-              onKeyDown={e => {
-                if (e.key === 'Enter') handleHexBlur();
-              }}
-            />
-            <span className="wyx-ui_color-label">HEX</span>
-          </div>
-          {showAlpha && (
-            <div className="wyx-ui_color-alpha-group">
+      {!simple && (
+        <div className="wyx-ui_color-controls">
+          <div className="wyx-ui_color-row">
+            <div className="wyx-ui_color-preview" style={{ background: `rgba(${rgb.r},${rgb.g},${rgb.b},${alpha})` }} />
+            <div className="wyx-ui_color-hex-group">
               <input 
                 className="wyx-ui_color-input"
-                value={Math.round(alpha * 100)}
-                onChange={e => {
-                  let v = parseInt(e.target.value, 10);
-                  if (isNaN(v)) v = 100;
-                  handleAlphaChange(clamp(v, 0, 100) / 100);
+                value={localHex}
+                onChange={e => handleHexInput(e.target.value)}
+                onBlur={handleHexBlur}
+                onKeyDown={e => {
+                  if (e.key === 'Enter') handleHexBlur();
                 }}
               />
-              <span className="wyx-ui_color-label">A %</span>
+              <span className="wyx-ui_color-label">HEX</span>
             </div>
-          )}
-        </div>
+            {showAlpha && (
+              <div className="wyx-ui_color-alpha-group">
+                <input 
+                  className="wyx-ui_color-input"
+                  value={Math.round(alpha * 100)}
+                  onChange={e => {
+                    let v = parseInt(e.target.value, 10);
+                    if (isNaN(v)) v = 100;
+                    handleAlphaChange(clamp(v, 0, 100) / 100);
+                  }}
+                />
+                <span className="wyx-ui_color-label">A %</span>
+              </div>
+            )}
+          </div>
 
-          {showConverter && (
-            <div className="wyx-ui_color-converter">
-              <div className="wyx-ui_color-mode-container" ref={modeRef}>
-                <div 
-                  className="wyx-ui_color-mode-trigger" 
-                  onClick={() => setModeOpen(!modeOpen)}
-                >
-                  <span>{MODES[displayMode].label}</span>
-                  <svg 
-                    viewBox="0 0 24 24" 
-                    width="12" 
-                    height="12" 
-                    fill="currentColor" 
-                    className={`wyx-ui_color-mode-arrow ${modeOpen ? 'is-open' : ''}`}
+            {showConverter && (
+              <div className="wyx-ui_color-converter">
+                <div className="wyx-ui_color-mode-container" ref={modeRef}>
+                  <div 
+                    className="wyx-ui_color-mode-trigger" 
+                    onClick={() => setModeOpen(!modeOpen)}
                   >
-                    <path d="M7 10l5 5 5-5z" />
-                  </svg>
-                </div>
-                {modeOpen && (
-                  <div className="wyx-ui_color-mode-list">
-                    {Object.entries(MODES).map(([k, m]) => (
-                      <div 
-                        key={k} 
-                        className={`wyx-ui_color-mode-item ${k === displayMode ? 'is-selected' : ''}`}
-                        onClick={() => {
-                          setDisplayMode(k as ColorMode);
-                          setModeOpen(false);
-                        }}
-                      >
-                        {m.label}
-                      </div>
-                    ))}
+                    <span>{MODES[displayMode].label}</span>
+                    <svg 
+                      viewBox="0 0 24 24" 
+                      width="12" 
+                      height="12" 
+                      fill="currentColor" 
+                      className={`wyx-ui_color-mode-arrow ${modeOpen ? 'is-open' : ''}`}
+                    >
+                      <path d="M7 10l5 5 5-5z" />
+                    </svg>
                   </div>
-                )}
+                  {modeOpen && (
+                    <div className="wyx-ui_color-mode-list">
+                      {Object.entries(MODES).map(([k, m]) => (
+                        <div 
+                          key={k} 
+                          className={`wyx-ui_color-mode-item ${k === displayMode ? 'is-selected' : ''}`}
+                          onClick={() => {
+                            setDisplayMode(k as ColorMode);
+                            setModeOpen(false);
+                          }}
+                        >
+                          {m.label}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <div 
+                  className="wyx-ui_color-display-input"
+                >
+                  <span>{displayValue}</span>
+                </div>
               </div>
-              <div 
-                className="wyx-ui_color-display-input"
-              >
-                <span>{displayValue}</span>
-              </div>
-            </div>
-          )}
-      </div>
+            )}
+        </div>
+      )}
     </div>
   );
 }
