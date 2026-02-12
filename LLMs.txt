@@ -1,0 +1,66 @@
+wyx-ui (@wyx-ui/react) — LLMs.txt
+
+目的
+- 这是给自动化 AI 工具/Agent 的项目入口说明文件
+- 只关注组件库本身（packages/wyx-ui）
+- 目标是让 AI 在最少扫描的情况下，快速定位组件实现、导出入口、构建方式与关键约定
+
+项目位置与结构
+- 包根目录：packages/wyx-ui
+- 源码入口：packages/wyx-ui/src/index.ts
+  - 这是组件库“对外导出清单”的唯一权威来源（新增/移除组件先看这里）
+- 组件实现：packages/wyx-ui/src/components/<ComponentName>/
+  - 通常包含 TSX 实现与 SCSS 样式文件
+
+技术栈
+- React + TypeScript
+- 样式：SCSS
+- 打包：tsup（esm/cjs + dts）
+
+本包常用命令（在仓库根目录执行）
+- 构建组件库：pnpm --filter @wyx-ui/react build
+- 组件库开发构建（watch）：pnpm --filter @wyx-ui/react dev
+
+对外导出（概览）
+- 组件（以 src/index.ts 为准，名称区分大小写）：
+  - Button, BorderText, AutoInput, FlipCard, Btns, CopyBtn, Message, Modal, Note, NoteBox, Icons, Popover, Count, Image, Color, Marquee, Swiper, PointText, Danmu, TimeLine, Progress, SplitText, TransformText, TypeText, Lens, MorphingText, Badge, Avatar, Range, Switch, Select, Radio, CheckBox, Rate, DateSelect, Calendar
+- 额外导出：
+  - openImagePreview
+  - useDanmuChannel
+  - openModal / openNote / openNoteBox
+  - 主题：switchTheme, getCurrentTheme, getAvailableThemes, addTheme, updateTheme, ThemeName, themeTransition
+- Calendar 相关类型导出（以 src/index.ts 为准）：
+  - CalendarSelectInfo, CalendarMark, CalendarHoliday, CalendarMarkRenderInfo, CalendarMarkEvent, CalendarMarkVariant, CalendarRef
+
+实现与修改约定（AI 友好规则）
+- 优先遵循已有组件的 props 结构、命名与默认值写法，不要引入新依赖（除非项目内已存在）
+- 样式优先写在组件同目录的 SCSS 中，并跟随现有 class 命名方式
+- 需要对外提供新能力时：
+  1) 修改组件实现
+  2) 更新导出入口（src/index.ts 的 export/export type）
+  3) 确认构建脚本可通过（pnpm --filter @wyx-ui/react build）
+
+关键组件要点（用于快速定位/理解）
+
+Calendar
+- 文件：src/components/Calendar/Calendar.tsx
+- marks（标记）：
+  - CalendarMark: { date: Date|string; color?; variant?: 'single'|'range'; content?: ReactNode }
+  - 同一天重复 marks 会自动覆盖，只保留最后一个（按 dateKey + variant 去重；single 与 range 视为不同维度，可同时存在）
+- ref 方法：
+  - CalendarRef.clearMarks(dates: (Date|string)[])：清除给定日期数组对应日期上的标记（single + range 都会清除）
+- weekLabels 默认值：
+  - locale 为 zh 或 zh-* 时默认：日 一 二 三 四 五 六
+  - 其他 locale 默认：Sun Mon Tue Wed Thu Fri Sat
+
+Select
+- 文件：src/components/Select/Select.tsx
+- 支持 renderValue(value, option) 自定义触发器的“选中值”渲染（可返回 Icon/任意 ReactNode）
+
+Color
+- 文件：src/components/Color/Color.tsx
+- simple 模式：隐藏 color-controls，用于更紧凑的场景
+
+TransformText / TypeText
+- 文件：src/components/TransformText/TransformText.tsx、src/components/TypeText/TypeText.tsx
+- 采用 forwardRef + useImperativeHandle 暴露实例方法（当你需要为其他组件增加 ref 方法时可参考该模式）
