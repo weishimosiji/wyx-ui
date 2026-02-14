@@ -1,9 +1,9 @@
 import { ThemeName } from "./themeManage";
 
-function computeMaxRadius(x: number, y: number) {
-  const maxX = Math.max(x, window.innerWidth - x);
-  const maxY = Math.max(y, window.innerHeight - y);
-  return Math.hypot(maxX, maxY); // √(maxX² + maxY²)
+function computeMaxRadius(x: number, y: number, vw: number, vh: number) {
+  const maxX = Math.max(x, vw - x);
+  const maxY = Math.max(y, vh - y);
+  return Math.hypot(maxX, maxY);
 }
 
 interface TransitionOptions {
@@ -17,8 +17,13 @@ interface TransitionOptions {
 export function themeTransition(
   options: TransitionOptions
 ) {
+  if (typeof document === 'undefined' || typeof window === 'undefined') {
+    options.toggle();
+    return;
+  }
+
   const { themeName, x, y } = options;
-  const maxRadius = computeMaxRadius(x, y);
+  const maxRadius = computeMaxRadius(x, y, window.innerWidth, window.innerHeight);
   // const x = e.clientX
   // const y = e.clientY
   // Calculate the maximum radius from the mouse click position to the viewport
@@ -29,10 +34,16 @@ export function themeTransition(
   document.documentElement.style.setProperty('--y', y + 'px')
   document.documentElement.style.setProperty('--r', maxRadius + 'px')
   // const transitionDuration = 
-  document.startViewTransition(async () => {
-    // Logic for switching themes
+  const startViewTransition = (document as any).startViewTransition as undefined | ((cb: () => void | Promise<void>) => void);
+  if (typeof startViewTransition !== 'function') {
     document.documentElement.classList.toggle("wyx-ui-dark", themeName === ThemeName.Light);
-    options.toggle();  
+    options.toggle();
+    return;
+  }
+
+  startViewTransition(async () => {
+    document.documentElement.classList.toggle("wyx-ui-dark", themeName === ThemeName.Light);
+    options.toggle();
     await new Promise(resolve => setTimeout(resolve, 0));
   });
 

@@ -40,6 +40,12 @@ export default function Lens({
     };
 
     updateSize();
+    if (typeof ResizeObserver === 'undefined') {
+      if (typeof window === 'undefined') return;
+      window.addEventListener('resize', updateSize);
+      return () => window.removeEventListener('resize', updateSize);
+    }
+
     const ro = new ResizeObserver(() => updateSize());
     ro.observe(el);
     return () => ro.disconnect();

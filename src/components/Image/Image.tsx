@@ -54,6 +54,10 @@ export default function Image({
     if (!lazy) return;
     const el = wrapRef.current;
     if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setCanLoad(true);
+      return;
+    }
     const io = new IntersectionObserver((entries) => {
       const e = entries[0];
       if (e && e.isIntersecting) {

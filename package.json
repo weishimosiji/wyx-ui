@@ -1,6 +1,31 @@
 {
   "name": "@wyx-ui/react",
   "version": "0.1.0",
+  "description": "WYX UI — A React UI component library with rich interactions.",
+  "keywords": [
+    "react",
+    "ui",
+    "component",
+    "components",
+    "typescript",
+    "scss",
+    "animation",
+    "wyx-ui"
+  ],
+  "homepage": "https://github.com/weishimosiji/wyx-ui#readme",
+  "bugs": {
+    "url": "https://github.com/weishimosiji/wyx-ui/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weishimosiji/wyx-ui.git",
+    "directory": "packages/wyx-ui"
+  },
+  "license": "MIT",
+  "author": "weishimosiji",
+  "publishConfig": {
+    "access": "public"
+  },
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -11,12 +36,15 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
-    "./styles.css": "./dist/index.css",
-    "./normalize.css": "./dist/normalize.css"
+    "./core": {
+      "types": "./dist/core.d.ts",
+      "import": "./dist/core.mjs",
+      "require": "./dist/core.js"
+    },
+    "./styles.css": "./dist/index.css"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "sideEffects": [
     "*.css",
@@ -37,6 +65,7 @@
   },
   "scripts": {
     "build": "tsup --format esm,cjs --dts --clean",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
     "dev": "tsup --watch --format esm,cjs --dts"
   }
 }

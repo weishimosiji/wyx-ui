@@ -71,13 +71,21 @@ export default function Swiper({
 
   useEffect(() => {
     const el = viewportRef.current; if (!el) return;
+    setVw(el.clientWidth);
+
+    if (typeof ResizeObserver === 'undefined') {
+      if (typeof window === 'undefined') return;
+      const onResize = () => setVw(el.clientWidth);
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+    }
+
     const ro = new ResizeObserver((entries) => {
       const entry = entries[0];
       const w = Math.max(0, Math.floor(entry.contentRect.width));
       setVw(w);
     });
     ro.observe(el);
-    setVw(el.clientWidth);
     return () => ro.disconnect();
   }, []);
 

@@ -14,12 +14,15 @@ export enum ThemeName {
   Light = 'light',
 }
 
-// theme.js
+const canUseDOM = typeof window !== 'undefined' && typeof document !== 'undefined';
+
 class ThemeManager {
   private themes: Record<string, ThemeConfig> = {};
   private currentTheme: 'light' | 'dark' = 'light';
-  private stylesheet: CSSStyleSheet = new CSSStyleSheet();
+  private stylesheet: CSSStyleSheet | null = null;
   private styleEl: HTMLStyleElement | null = null;
+  private attached = false;
+  private initialized = false;
 
   constructor() {
     this.themes = {
@@ -46,14 +49,21 @@ class ThemeManager {
     };
     
     this.currentTheme = 'light';
-    this.init();
   }
 
   private attachSheet() {
-    const supportsConstructable = 'adoptedStyleSheets' in document && 'replaceSync' in (CSSStyleSheet.prototype as any);
+    if (!canUseDOM) return;
+    if (this.attached) return;
+
+    const supportsConstructable =
+      'adoptedStyleSheets' in document &&
+      typeof (CSSStyleSheet as any) !== 'undefined' &&
+      'replaceSync' in (CSSStyleSheet.prototype as any);
+
     if (supportsConstructable) {
+      if (!this.stylesheet) this.stylesheet = new CSSStyleSheet();
       const sheets = (document.adoptedStyleSheets || []) as CSSStyleSheet[];
-      if (!sheets.includes(this.stylesheet)) {
+      if (this.stylesheet && !sheets.includes(this.stylesheet)) {
         document.adoptedStyleSheets = [...sheets, this.stylesheet];
       }
     } else {
@@ -64,16 +74,23 @@ class ThemeManager {
         document.head.appendChild(this.styleEl);
       }
     }
+
+    this.attached = true;
   }
 
   private applyTheme(theme: ThemeConfig) {
+    if (!canUseDOM) return;
     const cssText = `
       .wyx-ui {
         ${Object.entries(theme).map(([key, value]) => `${key}: ${value};`).join('\n')}
       }
     `;
-    const supportsConstructable = 'adoptedStyleSheets' in document && 'replaceSync' in (CSSStyleSheet.prototype as any);
-    if (supportsConstructable) {
+    const supportsConstructable =
+      'adoptedStyleSheets' in document &&
+      this.stylesheet &&
+      'replaceSync' in (CSSStyleSheet.prototype as any);
+
+    if (supportsConstructable && this.stylesheet) {
       this.stylesheet.replaceSync(cssText);
     } else if (this.styleEl) {
       this.styleEl.textContent = cssText;
@@ -81,8 +98,17 @@ class ThemeManager {
   }
 
   init() {
-    // Restore theme from localStorage
-    const savedTheme: ThemeName | null = localStorage.getItem('wyx-ui-theme') as ThemeName | null;
+    if (this.initialized) return;
+    this.initialized = true;
+    if (!canUseDOM) return;
+
+    let savedTheme: ThemeName | null = null;
+    try {
+      savedTheme = localStorage.getItem('wyx-ui-theme') as ThemeName | null;
+    } catch {
+      savedTheme = null;
+    }
+
     this.attachSheet();
     this.switchTheme(savedTheme || ThemeName.Light);
   }
@@ -96,15 +122,23 @@ class ThemeManager {
     this.currentTheme = themeName;
     const theme = this.themes[themeName];
 
+    if (!canUseDOM) return;
+    this.attachSheet();
     this.applyTheme(theme);
     
-    // Save to localStorage
-    localStorage.setItem('wyx-ui-theme', themeName);
+    try {
+      localStorage.setItem('wyx-ui-theme', themeName);
+    } catch {
+      void 0;
+    }
     
-    // Trigger theme change event
-    window.dispatchEvent(new CustomEvent('themeChange', { 
-      detail: { theme: themeName } 
-    }));
+    try {
+      window.dispatchEvent(new CustomEvent('themeChange', {
+        detail: { theme: themeName }
+      }));
+    } catch {
+      void 0;
+    }
   }
 
   getCurrentTheme() {
@@ -125,20 +159,32 @@ class ThemeManager {
     if (this.themes[name]) {
       this.themes[name] = { ...this.themes[name], ...updates };
       if (this.currentTheme === name) {
-        this.switchTheme(name); // Apply update immediately
+        this.switchTheme(name);
       }
     }
   }
 }
 
-// Create singleton instance
-const themeManager = new ThemeManager();
+let singleton: ThemeManager | null = null;
+function getThemeManager() {
+  if (!singleton) singleton = new ThemeManager();
+  if (canUseDOM) singleton.init();
+  return singleton;
+}
 
-// Export methods for third-party use
-export const switchTheme = (themeName: ThemeName) => themeManager.switchTheme(themeName);
-export const getCurrentTheme = () => themeManager.getCurrentTheme();
-export const getAvailableThemes = () => themeManager.getAvailableThemes();
-export const addTheme = (name: ThemeName, themeConfig: ThemeConfig) => themeManager.addTheme(name, themeConfig);
-export const updateTheme = (name: ThemeName, updates: Partial<ThemeConfig>) => themeManager.updateTheme(name, updates);
+export const switchTheme = (themeName: ThemeName) => getThemeManager().switchTheme(themeName);
+export const getCurrentTheme = () => getThemeManager().getCurrentTheme();
+export const getAvailableThemes = () => getThemeManager().getAvailableThemes();
+export const addTheme = (name: ThemeName, themeConfig: ThemeConfig) => getThemeManager().addTheme(name, themeConfig);
+export const updateTheme = (name: ThemeName, updates: Partial<ThemeConfig>) => getThemeManager().updateTheme(name, updates);
+
+const themeManager = {
+  init: () => getThemeManager().init(),
+  switchTheme,
+  getCurrentTheme,
+  getAvailableThemes,
+  addTheme,
+  updateTheme,
+};
 
 export default themeManager;

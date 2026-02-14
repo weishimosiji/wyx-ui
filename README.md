@@ -21,7 +21,7 @@ yarn add @wyx-ui/react
 
 ```tsx
 import { Button } from "@wyx-ui/react";
-import "@wyx-ui/react/dist/index.css"; // 引入样式（如果有）
+import "@wyx-ui/react/styles.css";
 
 export default function Demo() {
   return <Button variant="primary">确定</Button>;
