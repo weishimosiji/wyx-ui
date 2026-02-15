@@ -34,7 +34,9 @@ export function themeTransition(
   document.documentElement.style.setProperty('--y', y + 'px')
   document.documentElement.style.setProperty('--r', maxRadius + 'px')
   // const transitionDuration = 
-  const startViewTransition = (document as any).startViewTransition as undefined | ((cb: () => void | Promise<void>) => void);
+  const startViewTransition = (document as any).startViewTransition?.bind(document) as
+    | undefined
+    | ((cb: () => void | Promise<void>) => void);
   if (typeof startViewTransition !== 'function') {
     document.documentElement.classList.toggle("wyx-ui-dark", themeName === ThemeName.Light);
     options.toggle();
